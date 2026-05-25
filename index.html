@@ -470,17 +470,20 @@
     #about { border-top: 0.5px solid var(--border); }
 
     .about-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      max-width: 680px;
-      align-items: start;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1rem;
     }
 
     .about-text {
       font-family: var(--font-display);
-      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+      font-size: clamp(0.95rem, 1.15vw, 1.05rem);
       font-weight: 300;
-      line-height: 1.7;
+      line-height: 1.6;
+      max-width: 940px;
       color: var(--text);
     }
 
@@ -775,6 +778,21 @@
       </div>
     </div>
 
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-label">Sobre</div>
+    <div class="about-grid">
+      <div>
+        <p class="about-text reveal">
+          Psicólogo e designer gráfico com mais de <em>15 anos de experiência</em> na indústria audiovisual.
+          Editor, pós-produtor e roteirista com trabalhos exibidos em Berlim, Apple TV, MUBI e TV aberta.
+          <br><br>
+          Uma trajetória construída entre a <em>Amazônia e São Paulo</em> — do documentário à série, do videoclipe ao roteiro.
+        </p>
+      </div>
+    </div>
   </section>
 
   <!-- Info strip -->
@@ -1230,21 +1248,6 @@
         </div>
       </article>
 
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about">
-    <div class="section-label">Sobre</div>
-    <div class="about-grid">
-      <div>
-        <p class="about-text reveal">
-          Psicólogo e designer gráfico com mais de <em>15 anos de experiência</em> na indústria audiovisual.
-          Editor, pós-produtor e roteirista com trabalhos exibidos em Berlim, Apple TV, MUBI e TV aberta.
-          <br><br>
-          Uma trajetória construída entre a <em>Amazônia e São Paulo</em> — do documentário à série, do videoclipe ao roteiro.
-        </p>
-      </div>
     </div>
   </section>
 
