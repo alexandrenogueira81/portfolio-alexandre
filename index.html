@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alexandre Nogueira — Editor, Pós-produtor, Roteirista e Visual Storyteller. São Paulo, Brasil.">
+  <meta property="og:title" content="Alexandre Nogueira — Editor & Visual Storyteller">
+  <meta property="og:description" content="15 anos de experiência em edição, pós-produção e roteiro. Séries, documentários, publicidade.">
+  <title>Alexandre Nogueira</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0E0E0D;
+      --text: #EAE7DF;
+      --muted: #64625C;
+      --border: #252320;
+      --accent: #C9A96E;
+      --font-display: 'Inter', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --max: 1100px;
+      --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      cursor: auto;
+      overflow-x: hidden;
+    }
+
+    a, button { cursor: auto; }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(14, 14, 13, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-social {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+    }
+
+    .nav-social-link {
+      display: flex;
+      align-items: center;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav-social-link:hover { color: var(--accent); }
+
+    .nav-social-icon {
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (max-width: 480px) {
+      .nav-social { gap: 0.75rem; }
+    }
+
+    .hero-carousel {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .hero-carousel-slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s var(--ease);
+      z-index: 1;
+    }
+
+    .hero-carousel-slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .hero-carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(15%);
+    }
+
+    /* Hero */
+    #home {
+      aspect-ratio: 21/9;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-photo {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(
+        to top,
+        rgba(26, 26, 24, 0.82) 0%,
+        rgba(26, 26, 24, 0.35) 50%,
+        rgba(26, 26, 24, 0.1) 100%
+      );
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s var(--ease) 0.2s forwards;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4.5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+      color: #F7F5F0;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.9s var(--ease) 0.35s forwards;
+    }
+
+    .hero-divider {
+      width: 1px;
+      height: 1.8rem;
+      background: rgba(247, 245, 240, 0.3);
+      flex-shrink: 0;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease) 0.45s forwards;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-display);
+      font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+      font-weight: 300;
+      font-style: normal;
+      letter-spacing: 0.04em;
+      color: rgba(247, 245, 240, 0.5);
+      margin-bottom: 0;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s var(--ease) 0.5s forwards;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s var(--ease) 0.65s forwards;
+    }
+
+    .hero-meta span { color: var(--accent); margin-right: 4px; }
+
+/* Sections common */
+    section { padding: 7rem 3rem; }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 48px;
+      height: 0.5px;
+      background: var(--accent);
+    }
+
+    /* Portfolio */
+    #portfolio { border-top: 0.5px solid var(--border); }
+
+    .portfolio-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .portfolio-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 0.5px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--text);
+      color: var(--text);
+      background: transparent;
+    }
+    .filter-btn.active {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    /* Project grid */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.5rem;
+    }
+
+    .project-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    .project-item.highlighted .project-thumb {
+      aspect-ratio: 18 / 9;
+    }
+    .project-item.highlighted .project-thumb-inner {
+      transition: transform 0.6s var(--ease);
+    }
+    .project-item.highlighted:hover .project-thumb-inner {
+      transform: scale(1.05);
+    }
+    /* Padrão: 7+5 / 5+7 / 6+6 — repete */
+    .project-item:nth-child(1)  { grid-column: span 7; }
+    .project-item:nth-child(2)  { grid-column: span 5; }
+    .project-item:nth-child(3)  { grid-column: span 5; }
+    .project-item:nth-child(4)  { grid-column: span 7; }
+    .project-item:nth-child(5)  { grid-column: span 6; }
+    .project-item:nth-child(6)  { grid-column: span 6; }
+    .project-item:nth-child(7)  { grid-column: span 7; }
+    .project-item:nth-child(8)  { grid-column: span 5; }
+    .project-item:nth-child(9)  { grid-column: span 5; }
+    .project-item:nth-child(10) { grid-column: span 7; }
+    .project-item:nth-child(11) { grid-column: span 6; }
+    .project-item:nth-child(12) { grid-column: span 6; }
+    .project-item:nth-child(13) { grid-column: span 7; }
+    .project-item:nth-child(14) { grid-column: span 5; }
+    .project-item:nth-child(15) { grid-column: span 5; }
+    .project-item:nth-child(16) { grid-column: span 7; }
+    .project-item:nth-child(17) { grid-column: span 6; }
+    .project-item:nth-child(18) { grid-column: span 6; }
+
+    .project-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--border);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-thumb.clickable-thumb {
+      cursor: pointer;
+    }
+
+    .project-thumb-inner {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-color: #252320;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: 0;
+      transition: transform 0.6s var(--ease);
+    }
+    .project-item:hover .project-thumb-inner {
+      transform: scale(1.04);
+    }
+
+    .project-thumb-label {
+      display: none;
+    }
+
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 26, 24, 0.72);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.35s var(--ease);
+    }
+    .project-item:hover .project-overlay { opacity: 1; }
+
+    .project-overlay a {
+      text-decoration: none;
+      color: #F7F5F0;
+      display: block;
+    }
+
+    .project-watch {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .project-overlay-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-overlay-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 11px;
+      color: rgba(247, 245, 240, 0.6);
+      letter-spacing: 0.04em;
+    }
+
+    .project-award {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    /* Project info below thumb */
+    .project-info {
+      padding: 1rem 0 0;
+    }
+
+    .project-type {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      display: block;
+      transition: color 0.25s;
+    }
+    .project-title:hover { color: var(--accent); }
+
+    .project-role {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* About */
+    #about { border-top: 0.5px solid var(--border); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 680px;
+      align-items: start;
+    }
+
+    .about-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .about-text em {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .about-details { padding-top: 0.5rem; }
+
+    .about-block { margin-bottom: 2.5rem; }
+
+    .about-block-title {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .about-list {
+      list-style: none;
+    }
+    .about-list li {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 0.4rem 0;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .about-list li:last-child { border-bottom: none; }
+    .about-list li span { color: var(--text); font-weight: 400; }
+
+    /* Contact strip */
+    #contact {
+      border-top: 0.5px solid var(--border);
+      padding: 3.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      transition: color 0.25s;
+    }
+    .contact-item:hover { color: var(--text); }
+    .contact-item:hover .contact-icon { stroke: var(--accent); }
+
+    .contact-divider {
+      width: 1px;
+      height: 18px;
+      background: var(--border);
+    }
+
+    .contact-icon {
+      width: 18px;
+      height: 18px;
+      stroke: var(--muted);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.25s;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 1.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: none; }
+    }
+
+    /* Hero awards */
+    .hero-awards {
+      position: absolute;
+      top: 42%;
+      right: 4rem;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      z-index: 3;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) 0.9s forwards;
+    }
+
+    .award-badge {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 14px;
+      border: 0.5px solid rgba(201, 169, 110, 0.45);
+      background: rgba(26, 26, 24, 0.38);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .award-branch {
+      width: 14px;
+      height: 44px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .award-name {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      line-height: 1.45;
+      text-align: center;
+      min-width: 76px;
+    }
+
+    /* Info strip */
+    .info-strip {
+      background: #1A1917;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .info-col {
+      padding: 2.5rem 3rem;
+      border-right: 0.5px solid rgba(201, 169, 110, 0.12);
+    }
+    .info-col:last-child { border-right: none; }
+
+    .info-col .about-block-title {
+      color: var(--accent);
+      border-bottom-color: rgba(201, 169, 110, 0.15);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      nav { padding: 0.625rem 0.75rem; }
+      section { padding: 5rem 1.5rem; }
+      #home { padding: 1rem 1.5rem 2rem; }
+      .hero-photo { width: 60%; opacity: 0.4; }
+      .hero-overlay { background: linear-gradient(to right, var(--bg) 30%, rgba(14,14,13,0.7) 80%); }
+      .hero-name { font-size: clamp(2.4rem, 6.5vw, 3.4rem); }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-awards { top: auto; bottom: 4.5rem; right: 1.5rem; transform: none; gap: 0.75rem; }
+      .award-badge { padding: 7px 10px; }
+      .award-name { font-size: 0.58rem; min-width: 60px; }
+      .info-strip { grid-template-columns: 1fr; }
+      .info-col { border-right: none; border-bottom: 0.5px solid rgba(201, 169, 110, 0.12); }
+      .info-col:last-child { border-bottom: none; }
+      .project-item:nth-child(n) { grid-column: span 12; }
+      #contact { flex-direction: column; align-items: flex-start; }
+      .contact-links { align-items: flex-start; }
+      .scroll-hint { display: none; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+    @media (max-width: 720px) {
+      #home { aspect-ratio: 10/16; padding: 0.9rem 1rem 1.4rem; }
+      .hero-content { gap: 1rem; align-items: flex-start; }
+      .hero-name { font-size: clamp(2.1rem, 8vw, 2.8rem); }
+      .hero-overlay { background: linear-gradient(to top, rgba(14, 14, 13, 0.92) 0%, rgba(14, 14, 13, 0.55) 50%, rgba(14, 14, 13, 0.12) 100%); }
+      .hero-awards { opacity: 0.75; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .portfolio-header { flex-direction: column; align-items: flex-start; }
+      #home { aspect-ratio: 9/16; padding: 1rem 1rem 1.5rem; }
+      .hero-content { gap: 0.85rem; align-items: flex-start; }
+      .hero-name { font-size: clamp(1.8rem, 9vw, 2.4rem); white-space: normal; }
+      .hero-awards { display: none; }
+      .hero-overlay { background: linear-gradient(to top, rgba(14, 14, 13, 0.95) 0%, rgba(14, 14, 13, 0.55) 50%, rgba(14, 14, 13, 0.1) 100%); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav id="navbar">
+    <ul class="nav-links">
+      <li><a href="#portfolio">Portfólio</a></li>
+      <li><a href="#about">Sobre</a></li>
+      <li><a href="#contact">Contato</a></li>
+    </ul>
+    <div class="nav-social">
+      <a class="nav-social-link" href="mailto:alexandrenogueira81@gmail.com" title="E-mail">
+        <svg class="nav-social-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+      </a>
+      <a class="nav-social-link" href="tel:+5511989603410" title="Telefone">
+        <svg class="nav-social-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.39 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.07 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+      <a class="nav-social-link" href="https://linkedin.com/in/alexnogasi" target="_blank" title="LinkedIn">
+        <svg class="nav-social-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
+      </a>
+      <a class="nav-social-link" href="https://instagram.com/alexandrenogasi" target="_blank" title="Instagram">
+        <svg class="nav-social-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home">
+    <div class="hero-carousel" id="heroCarousel">
+      <div class="hero-carousel-slide active"><img src="../../assets/images/IMG_7511.jpg" alt="Slide 1"></div>
+      <div class="hero-carousel-slide"><img src="../../assets/images/2L6A0649.jpg" alt="Slide 2"></div>
+      <div class="hero-carousel-slide"><img src="../../assets/images/2L6A1127.jpg" alt="Slide 3"></div>
+      <div class="hero-carousel-slide"><img src="../../assets/images/IMG_2927.jpg" alt="Slide 4"></div>
+      <div class="hero-carousel-slide"><img src="../../assets/images/IMG_3228.jpg" alt="Slide 5"></div>
+      <div class="hero-carousel-slide"><img src="../../assets/images/IMG_3795.jpg" alt="Slide 6"></div>
+      <div class="hero-carousel-slide"><img src="../../assets/images/IMG_3971.jpg" alt="Slide 7"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-name">Alexandre Nogueira</h1>
+      <div class="hero-divider"></div>
+      <p class="hero-tagline">Editor · Pós-produção · Roteirista · Visual Storyteller</p>
+    </div>
+    <!-- Award laurels -->
+    <div class="hero-awards">
+      <div class="award-badge">
+        <svg class="award-branch" viewBox="0 0 18 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 54C7 45 5 36 4 27C3 18 5 10 9 4" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
+          <path d="M8 46C3 43 0 37 1 31C5 34 8 40 8 46Z" fill="currentColor" opacity="0.9"/>
+          <path d="M7 35C2 31 0 25 2 18C5 22 7 28 7 35Z" fill="currentColor" opacity="0.82"/>
+          <path d="M7 24C3 19 2 12 5 6C8 11 8 18 7 24Z" fill="currentColor" opacity="0.74"/>
+        </svg>
+        <span class="award-name">Melhor<br>Montagem</span>
+        <svg class="award-branch" viewBox="0 0 18 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+          <path d="M9 54C7 45 5 36 4 27C3 18 5 10 9 4" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
+          <path d="M8 46C3 43 0 37 1 31C5 34 8 40 8 46Z" fill="currentColor" opacity="0.9"/>
+          <path d="M7 35C2 31 0 25 2 18C5 22 7 28 7 35Z" fill="currentColor" opacity="0.82"/>
+          <path d="M7 24C3 19 2 12 5 6C8 11 8 18 7 24Z" fill="currentColor" opacity="0.74"/>
+        </svg>
+      </div>
+      <div class="award-badge">
+        <svg class="award-branch" viewBox="0 0 18 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 54C7 45 5 36 4 27C3 18 5 10 9 4" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
+          <path d="M8 46C3 43 0 37 1 31C5 34 8 40 8 46Z" fill="currentColor" opacity="0.9"/>
+          <path d="M7 35C2 31 0 25 2 18C5 22 7 28 7 35Z" fill="currentColor" opacity="0.82"/>
+          <path d="M7 24C3 19 2 12 5 6C8 11 8 18 7 24Z" fill="currentColor" opacity="0.74"/>
+        </svg>
+        <span class="award-name">Melhor<br>Documentário</span>
+        <svg class="award-branch" viewBox="0 0 18 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+          <path d="M9 54C7 45 5 36 4 27C3 18 5 10 9 4" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
+          <path d="M8 46C3 43 0 37 1 31C5 34 8 40 8 46Z" fill="currentColor" opacity="0.9"/>
+          <path d="M7 35C2 31 0 25 2 18C5 22 7 28 7 35Z" fill="currentColor" opacity="0.82"/>
+          <path d="M7 24C3 19 2 12 5 6C8 11 8 18 7 24Z" fill="currentColor" opacity="0.74"/>
+        </svg>
+      </div>
+      <div class="award-badge">
+        <svg class="award-branch" viewBox="0 0 18 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 54C7 45 5 36 4 27C3 18 5 10 9 4" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
+          <path d="M8 46C3 43 0 37 1 31C5 34 8 40 8 46Z" fill="currentColor" opacity="0.9"/>
+          <path d="M7 35C2 31 0 25 2 18C5 22 7 28 7 35Z" fill="currentColor" opacity="0.82"/>
+          <path d="M7 24C3 19 2 12 5 6C8 11 8 18 7 24Z" fill="currentColor" opacity="0.74"/>
+        </svg>
+        <span class="award-name">Melhor Filme<br>Institucional</span>
+        <svg class="award-branch" viewBox="0 0 18 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+          <path d="M9 54C7 45 5 36 4 27C3 18 5 10 9 4" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
+          <path d="M8 46C3 43 0 37 1 31C5 34 8 40 8 46Z" fill="currentColor" opacity="0.9"/>
+          <path d="M7 35C2 31 0 25 2 18C5 22 7 28 7 35Z" fill="currentColor" opacity="0.82"/>
+          <path d="M7 24C3 19 2 12 5 6C8 11 8 18 7 24Z" fill="currentColor" opacity="0.74"/>
+        </svg>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Info strip -->
+  <div class="info-strip">
+    <div class="info-col reveal">
+      <p class="about-block-title">Experiência</p>
+      <ul class="about-list">
+        <li>Jacarandá Áudio <span>2025 — atual</span></li>
+        <li>Amicci <span>2021 — 2023</span></li>
+        <li>Marahu Filmes <span>2016 — 2019</span></li>
+        <li>Clarté <span>2010 — 2016</span></li>
+      </ul>
+    </div>
+    <div class="info-col reveal">
+      <p class="about-block-title">Competências</p>
+      <ul class="about-list">
+        <li>Edição <span>Premiere · DaVinci</span></li>
+        <li>Pós-produção <span>Color · VFX</span></li>
+        <li>Roteiro <span>Séries · Longa</span></li>
+        <li>Direção de Fotografia <span>Documentário</span></li>
+      </ul>
+    </div>
+    <div class="info-col reveal">
+      <p class="about-block-title">Formação</p>
+      <ul class="about-list">
+        <li>Técnico em Design Gráfico <span>Anhembi Morumbi</span></li>
+        <li>Psicologia <span>UFPA</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <div class="section-label">Portfólio</div>
+    <div class="portfolio-header">
+      <h2 class="portfolio-title reveal">Trabalhos <em style="font-style:normal;color:var(--accent);font-family:var(--font-display);font-weight:400;">selecionados</em></h2>
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="serie">Série</button>
+        <button class="filter-btn" data-filter="documentario">Documentário</button>
+        <button class="filter-btn" data-filter="curta">Curta</button>
+        <button class="filter-btn" data-filter="videoclipe">Videoclipe</button>
+        <button class="filter-btn" data-filter="publicidade">Publicidade</button>
+      </div>
+    </div>
+
+    <div class="project-grid" id="projectGrid">
+
+      <!-- 1 · 2026 -->
+      <article class="project-item reveal" data-category="serie" data-thumbnail="../../assets/images/guerreiras.png">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <div>
+              <p class="project-watch">Em finalização</p>
+              <h3 class="project-overlay-title">GUERREIRAS</h3>
+              <div class="project-overlay-meta">
+                <span>2026</span>
+                <span>Coordenador de pós-produção</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Série · TV/Streaming</p>
+          <a class="project-title" href="#" target="_blank">GUERREIRAS</a>
+          <p class="project-role">Coordenador de pós-produção</p>
+        </div>
+      </article>
+
+      <!-- 2 · 2025 -->
+      <article class="project-item reveal highlighted" data-category="serie" data-thumbnail="../../assets/images/sabores-01-03.jpg">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://tv.apple.com/br/show/sabores-da-floresta/umc.cmc.2yg6v5d1xkurky9avht82vxo" target="_blank">
+              <p class="project-watch">Assistir no Apple TV →</p>
+              <h3 class="project-overlay-title">Sabores da Floresta</h3>
+              <div class="project-overlay-meta">
+                <span>Temp. 01 — 2018 · Temp. 02 — 2025</span>
+                <span>Editor</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Série · Apple TV</p>
+          <a class="project-title" href="https://tv.apple.com/br/show/sabores-da-floresta/umc.cmc.2yg6v5d1xkurky9avht82vxo" target="_blank">Sabores da Floresta</a>
+          <p class="project-role">Editor — Temporadas 01 e 02</p>
+        </div>
+      </article>
+
+      <!-- 3 · 2025 -->
+      <article class="project-item reveal" data-category="serie" data-thumbnail="../../assets/images/lardocelar.png">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <div>
+              <p class="project-watch">2025</p>
+              <h3 class="project-overlay-title">Lar Doce Lar</h3>
+              <div class="project-overlay-meta">
+                <span>2025</span>
+                <span>Roteirista</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Série TV/Streaming</p>
+          <a class="project-title" href="#" target="_blank">Lar Doce Lar</a>
+          <p class="project-role">Roteirista</p>
+        </div>
+      </article>
+
+      <!-- 4 · 2025 -->
+      <article class="project-item reveal" data-category="serie" data-thumbnail="../../assets/images/rios-de-encantaria-01.jpg">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://www.oliberal.com/cultura/exclusivo-lia-sophia-percorre-a-amazonia-na-serie-documentalrios-de-encantarias-1.863976" target="_blank">
+              <p class="project-watch">Ver matéria →</p>
+              <h3 class="project-overlay-title">Rios de Encantarias</h3>
+              <div class="project-overlay-meta">
+                <span>2025</span>
+                <span>Editor · Colorista</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Série · TV/Streaming</p>
+          <a class="project-title" href="https://www.oliberal.com/cultura/exclusivo-lia-sophia-percorre-a-amazonia-na-serie-documentalrios-de-encantarias-1.863976" target="_blank">Rios de Encantarias</a>
+          <p class="project-role">Editor · Colorista</p>
+        </div>
+      </article>
+
+      <!-- 5 · 2024 -->
+      <article class="project-item reveal" data-category="serie" data-thumbnail="../../assets/images/bar-brasil-01.jpg">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://marahu.com/bar-brasil/" target="_blank">
+              <p class="project-watch">Ver página →</p>
+              <h3 class="project-overlay-title">Bar Brasil</h3>
+              <div class="project-overlay-meta">
+                <span>2024</span>
+                <span>Editor</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Série TV/Streaming</p>
+          <a class="project-title" href="#" target="_blank">Bar Brasil</a>
+          <p class="project-role">Editor</p>
+        </div>
+      </article>
+
+      <!-- 6 · 2024 -->
+      <article class="project-item reveal highlighted" data-category="serie" data-thumbnail="../../assets/images/olhares-01.jpg">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://www.sommosamazonia.art.br/pt/serie/olhares-do-norte/" target="_blank">
+              <p class="project-watch">Assista na Sommos →</p>
+              <h3 class="project-overlay-title">Olhares do Norte</h3>
+              <div class="project-overlay-meta">
+                <span>2024</span>
+                <span>Editor · Colorista</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Série · Sommos</p>
+          <a class="project-title" href="https://www.sommosamazonia.art.br/pt/serie/olhares-do-norte/" target="_blank">Olhares do Norte</a>
+          <p class="project-role">Editor · Colorista</p>
+        </div>
+      </article>
+
+      <!-- 7 · 2022 -->
+      <article class="project-item reveal" data-category="serie" data-thumbnail="../../assets/images/popsulas.png">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://www.youtube.com/watch?v=Sh8nuLtGY9E&list=PL2yltlRjDVVHBvzDVHUkw8EYNe4B3kHcH" target="_blank">
+              <p class="project-watch">Assistir no YouTube →</p>
+              <h3 class="project-overlay-title">Popsulas</h3>
+              <div class="project-overlay-meta">
+                <span>2022</span>
+                <span>Editor</span>
+                <span>Canal E!</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Websérie · Canal E!</p>
+          <a class="project-title" href="https://www.youtube.com/watch?v=Sh8nuLtGY9E&list=PL2yltlRjDVVHBvzDVHUkw8EYNe4B3kHcH" target="_blank">Popsulas</a>
+          <p class="project-role">Editor</p>
+        </div>
+      </article>
+
+      <!-- 8 · 2021 -->
+      <article class="project-item reveal" data-category="serie" data-thumbnail="../../assets/images/2L6A0335.jpg">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://www.youtube.com/c/ThiagoCastanhoPar%C3%A1" target="_blank">
+              <p class="project-watch">Assistir →</p>
+              <h3 class="project-overlay-title">Canal Thiago Castanho — YouTube</h3>
+              <div class="project-overlay-meta">
+                <span>Desde 2021</span>
+                <span>Editor · Desenvolvimento de Formatos</span>
+                <span class="project-award">+150.000 inscritos · Prêmio Criador de Prata</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Canal YouTube</p>
+          <a class="project-title" href="https://www.youtube.com/c/ThiagoCastanhoPar%C3%A1" target="_blank">Canal Thiago Castanho — YouTube</a>
+          <p class="project-role">Editor · Desenvolvimento de Formatos</p>
+        </div>
+      </article>
+
+      <!-- 9 · 2018 -->
+      <article class="project-item reveal highlighted" data-category="documentario" data-thumbnail="../../assets/images/2L6A1127.jpg">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://mubi.com/pt/br/films/amazon-mirror" target="_blank">
+              <p class="project-watch">Assistir no MUBI →</p>
+              <h3 class="project-overlay-title">O Reflexo do Lago</h3>
+              <div class="project-overlay-meta">
+                <span>2018</span>
+                <span>2º Dir. de Fotografia</span>
+                <span class="project-award">Berlinale 70ª ed. · MUBI · Dokufest</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Documentário de longa-metragem</p>
+          <a class="project-title" href="https://mubi.com" target="_blank">O Reflexo do Lago <em>(Amazon Mirror)</em></a>
+          <p class="project-role">2º Diretor de Fotografia · Fotógrafo de cena</p>
+        </div>
+      </article>
+
+      <!-- 10 · 2018 -->
+      <article class="project-item reveal" data-category="curta" data-thumbnail="../../assets/images/cancao-do-amor-01.jpg">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://youtu.be/IIA0_-BpzDM?si=Ro4zXx0CnEnB_DCO" target="_blank">
+              <p class="project-watch">Assistir →</p>
+              <h3 class="project-overlay-title">Canção do Amor Perfeito</h3>
+              <div class="project-overlay-meta">
+                <span>2018</span>
+                <span>Co-Diretor · Editor</span>
+                <span class="project-award">Melhor fotografia — Mostra Sesc de Cinema/2018</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Curta Ficção</p>
+          <a class="project-title" href="https://marahu.com/cancao-do-amor-perfeito" target="_blank">Canção do Amor Perfeito</a>
+          <p class="project-role">Co-Diretor · Editor</p>
+        </div>
+      </article>
+
+      <!-- 11 · 2017–2018 -->
+      <article class="project-item reveal" data-category="serie" data-thumbnail="../../assets/images/roteiros.png">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://www.brde.com.br/wp-content/uploads/2016/05/PRODAV-032015_resultado_final.pdf" target="_blank">
+              <p class="project-watch">Ver documento →</p>
+              <h3 class="project-overlay-title">Núcleo Criativo de Roteiros (Clarté)</h3>
+              <div class="project-overlay-meta">
+                <span>2017–2018</span>
+                <span>Roteirista</span>
+                <span class="project-award">Residencial Pindorama · Yórum</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Núcleo Criativo</p>
+          <a class="project-title" href="https://www.brde.com.br/wp-content/uploads/2016/05/PRODAV-032015_resultado_final.pdf" target="_blank">Núcleo Criativo de Roteiros (Clarté)</a>
+          <p class="project-role">Roteirista — Série Residencial Pindorama · Longa Yórum</p>
+        </div>
+      </article>
+
+      <!-- 12 · 2017 -->
+      <article class="project-item reveal" data-category="documentario" data-thumbnail="../../assets/images/o-caminho-das-pedras-02.jpg">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://amazoniaflix.com.br/filme/o-caminho-das-pedras" target="_blank">
+              <p class="project-watch">Assistir no Amazônia Flix →</p>
+              <h3 class="project-overlay-title">O Caminho das Pedras</h3>
+              <div class="project-overlay-meta">
+                <span>2017</span>
+                <span>Co-Diretor · Editor</span>
+                <span class="project-award">Melhor documentário — Festival Cinema Étnico do Pará 2017</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Documentário de curta-metragem</p>
+          <a class="project-title" href="#" target="_blank">O Caminho das Pedras</a>
+          <p class="project-role">Co-Diretor · Editor</p>
+        </div>
+      </article>
+
+      <!-- 13 · 2017 -->
+      <article class="project-item reveal" data-category="videoclipe" data-thumbnail="../../assets/images/juliana-lanca.png">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://youtu.be/jt-CAaaWvbo?si=ITzq2BsksDfWc5L9" target="_blank">
+              <p class="project-watch">Assistir →</p>
+              <h3 class="project-overlay-title">Juliana Sinimbú — Lança</h3>
+              <div class="project-overlay-meta">
+                <span>2017</span>
+                <span>Editor</span>
+                <span class="project-award">Melhor edição — Festival Maranhão na Tela 2018</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Videoclipe Musical</p>
+          <a class="project-title" href="#" target="_blank">Juliana Sinimbú — Lança</a>
+          <p class="project-role">Editor · <em style="color:var(--accent)">Melhor Edição · Festival Maranhão na Tela 2018</em></p>
+        </div>
+      </article>
+
+      <!-- 14 · 2016 -->
+      <article class="project-item reveal" data-category="serie" data-thumbnail="../../assets/images/juventuderural.png">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://globoplay.globo.com/v/6307461/?s=0s" target="_blank">
+              <p class="project-watch">Assista na Globoplay →</p>
+              <h3 class="project-overlay-title">Diz Aí — Juventude Rural</h3>
+              <div class="project-overlay-meta">
+                <span>2016</span>
+                <span>Diretor · Fotógrafo · Editor</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Série · Globoplay</p>
+          <a class="project-title" href="https://globoplay.globo.com/v/6307461/?s=0s" target="_blank">Diz Aí — Juventude Rural</a>
+          <p class="project-role">Diretor · Fotógrafo · Editor</p>
+        </div>
+      </article>
+
+      <!-- 15 · 2016 -->
+      <article class="project-item reveal" data-category="documentario" data-thumbnail="../../assets/images/a-batalha-sao-braz-02.jpg">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://www.youtube.com/watch?v=I-EbkC2EsHc" target="_blank">
+              <p class="project-watch">Assistir →</p>
+              <h3 class="project-overlay-title">A Batalha de São Bráz</h3>
+              <div class="project-overlay-meta">
+                <span>2016</span>
+                <span>Segunda unidade de câmera</span>
+                <span class="project-award">In-Edit · Mimo · Melhor Doc. · Melhor Curta · Júri Popular — FAB · Sesc 2017</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Documentário de curta-metragem</p>
+          <a class="project-title" href="https://www.youtube.com/watch?v=I-EbkC2EsHc" target="_blank">A Batalha de São Bráz</a>
+          <p class="project-role">Segunda unidade de câmera</p>
+        </div>
+      </article>
+
+      <!-- 16 · 2015 -->
+      <article class="project-item reveal" data-category="serie" data-thumbnail="../../assets/images/dizai.png">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://youtu.be/n1SlZ2pH2UA?si=-YCJeHEPuICaEngB" target="_blank">
+              <p class="project-watch">Assistir →</p>
+              <h3 class="project-overlay-title">Diz Aí Amazônida</h3>
+              <div class="project-overlay-meta">
+                <span>2015</span>
+                <span>Co-diretor · Editor</span>
+                <span class="project-award">Indicada — Televisión América Latina</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Série TV/Streaming</p>
+          <a class="project-title" href="#" target="_blank">Diz Aí Amazônida</a>
+          <p class="project-role">Co-diretor · Editor</p>
+        </div>
+      </article>
+
+      <!-- 16 · 2013 -->
+      <article class="project-item reveal" data-category="documentario" data-thumbnail="../../assets/images/nmf3.jpg">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://www.youtube.com/watch?v=LQr7otNrwPo" target="_blank">
+              <p class="project-watch">Assistir →</p>
+              <h3 class="project-overlay-title">No Movimento da Fé</h3>
+              <div class="project-overlay-meta">
+                <span>2013</span>
+                <span>Co-editor</span>
+                <span class="project-award">Melhor montagem · Melhor trilha · Escolha do público — CINEPE 2014</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Curta-documentário</p>
+          <a class="project-title" href="#" target="_blank">No Movimento da Fé <em>(Moved by Faith)</em></a>
+          <p class="project-role">Co-editor · <em style="color:var(--accent)">3 prêmios CINEPE 2014</em></p>
+        </div>
+      </article>
+
+      <!-- 17 · 2013 -->
+      <article class="project-item reveal" data-category="publicidade" data-thumbnail="../../assets/images/saudequestao.png">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="project-overlay">
+            <a href="https://youtu.be/ESF0yzcmJHc?si=Pk299yXXcbKnWJqK" target="_blank">
+              <p class="project-watch">Assistir →</p>
+              <h3 class="project-overlay-title">Saúde é uma Questão de Felicidade</h3>
+              <div class="project-overlay-meta">
+                <span>2013</span>
+                <span>Co-diretor · Editor</span>
+                <span class="project-award">Prêmio Diário de Publicidade 2013</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-type">Filme Institucional</p>
+          <a class="project-title" href="#" target="_blank">Saúde é uma Questão de Felicidade</a>
+          <p class="project-role">Co-diretor · Editor · <em style="color:var(--accent)">Prêmio Diário de Publicidade</em></p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-label">Sobre</div>
+    <div class="about-grid">
+      <div>
+        <p class="about-text reveal">
+          Psicólogo e designer gráfico com mais de <em>15 anos de experiência</em> na indústria audiovisual.
+          Editor, pós-produtor e roteirista com trabalhos exibidos em Berlim, Apple TV, MUBI e TV aberta.
+          <br><br>
+          Uma trajetória construída entre a <em>Amazônia e São Paulo</em> — do documentário à série, do videoclipe ao roteiro.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <div id="contact">
+    <a class="contact-item reveal" href="mailto:alexandrenogueira81@gmail.com">
+      <svg class="contact-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+      alexandrenogueira81@gmail.com
+    </a>
+
+    <div class="contact-divider"></div>
+
+    <a class="contact-item reveal" href="tel:+5511989603410">
+      <svg class="contact-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.39 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.07 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      +55 11 98960-3410
+    </a>
+
+    <div class="contact-divider"></div>
+
+    <a class="contact-item reveal" href="https://linkedin.com/in/alexnogasi" target="_blank">
+      <svg class="contact-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
+      @alexnogasi
+    </a>
+
+    <div class="contact-divider"></div>
+
+    <a class="contact-item reveal" href="https://instagram.com/alexandrenogasi" target="_blank">
+      <svg class="contact-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+      @alexandrenogasi
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <span>© 2025 Alexandre Nogueira</span>
+    <span>São Paulo, Brasil</span>
+  </footer>
+
+  <script>
+    // Hero carousel
+    const carousel = document.getElementById('heroCarousel');
+    if (carousel) {
+      const slides = carousel.querySelectorAll('.hero-carousel-slide');
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      const autoPlayInterval = 4000; // 4 segundos por slide
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === index);
+        });
+      }
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        showSlide(currentIndex);
+      }
+
+      // Auto-play carousel
+      setInterval(nextSlide, autoPlayInterval);
+    }
+
+    // Sticky nav
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Load thumbnails
+    const projectItems = document.querySelectorAll('.project-item');
+    projectItems.forEach(item => {
+      const thumbnail = item.dataset.thumbnail;
+      if (thumbnail) {
+        const thumbInner = item.querySelector('.project-thumb-inner');
+        thumbInner.style.backgroundImage = `url('${thumbnail}')`;
+      }
+    });
+
+    // Make thumbnails clickable when overlay links exist
+    projectItems.forEach(item => {
+      const thumb = item.querySelector('.project-thumb');
+      const overlayAnchor = item.querySelector('.project-overlay a');
+      if (thumb && overlayAnchor) {
+        thumb.classList.add('clickable-thumb');
+        thumb.addEventListener('click', event => {
+          if (event.target.closest('a')) return;
+          window.open(overlayAnchor.href, '_blank');
+        });
+      }
+    });
+
+    // Filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        projectItems.forEach(item => {
+          const match = filter === 'all' || item.dataset.category === filter;
+          item.style.display = match ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
