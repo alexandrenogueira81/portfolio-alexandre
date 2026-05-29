@@ -83,6 +83,12 @@
     }
     .nav-links a:hover { color: var(--text); }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+    }
+
     .nav-social {
       display: flex;
       align-items: center;
@@ -106,6 +112,41 @@
       stroke-width: 1.5;
       stroke-linecap: round;
       stroke-linejoin: round;
+    }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: transparent;
+      border: 0.5px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .lang-btn:hover { color: var(--text); }
+    .lang-btn.active {
+      background: var(--text);
+      color: var(--bg);
+    }
+    .lang-sep {
+      width: 0.5px;
+      height: 14px;
+      background: var(--border);
+      flex-shrink: 0;
     }
 
     @media (max-width: 480px) {
@@ -328,7 +369,6 @@
     .project-item.highlighted .project-thumb {
       aspect-ratio: 18 / 9;
     }
-    /* Padrão: 7+5 / 5+7 / 6+6 — repete */
     .project-item:nth-child(1)  { grid-column: span 7; }
     .project-item:nth-child(2)  { grid-column: span 5; }
     .project-item:nth-child(3)  { grid-column: span 5; }
@@ -758,24 +798,31 @@
   <!-- Nav -->
   <nav id="navbar">
     <ul class="nav-links">
-      <li><a href="#portfolio">Portfólio</a></li>
-      <li><a href="#about">Sobre</a></li>
-      <li><a href="#estudos">Casos</a></li>
-      <li><a href="#contact">Contato</a></li>
+      <li><a href="#portfolio" data-i18n="nav-portfolio">Portfólio</a></li>
+      <li><a href="#about" data-i18n="nav-about">Sobre</a></li>
+      <li><a href="#estudos" data-i18n="nav-cases">Casos</a></li>
+      <li><a href="#contact" data-i18n="nav-contact">Contato</a></li>
     </ul>
-    <div class="nav-social">
-      <a class="nav-social-link" href="mailto:alexandrenogueira81@gmail.com" title="E-mail">
-        <svg class="nav-social-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-      </a>
-      <a class="nav-social-link" href="tel:+5511989603410" title="Telefone">
-        <svg class="nav-social-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.39 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.07 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      </a>
-      <a class="nav-social-link" href="https://linkedin.com/in/alexnogasi" target="_blank" title="LinkedIn">
-        <svg class="nav-social-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
-      </a>
-      <a class="nav-social-link" href="https://instagram.com/alexandrenogasi" target="_blank" title="Instagram">
-        <svg class="nav-social-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
-      </a>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btnPT" onclick="setLang('pt')">PT</button>
+        <div class="lang-sep"></div>
+        <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+      </div>
+      <div class="nav-social">
+        <a class="nav-social-link" href="mailto:alexandrenogueira81@gmail.com" title="E-mail">
+          <svg class="nav-social-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        </a>
+        <a class="nav-social-link" href="tel:+5511989603410" title="Telefone">
+          <svg class="nav-social-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.39 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.07 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </a>
+        <a class="nav-social-link" href="https://linkedin.com/in/alexnogasi" target="_blank" title="LinkedIn">
+          <svg class="nav-social-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
+        </a>
+        <a class="nav-social-link" href="https://instagram.com/alexandrenogasi" target="_blank" title="Instagram">
+          <svg class="nav-social-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
     </div>
   </nav>
 
@@ -794,7 +841,7 @@
     <div class="hero-content">
       <h1 class="hero-name">Alexandre Nogueira</h1>
       <div class="hero-divider"></div>
-      <p class="hero-tagline">Editor · Pós-produção · Roteirista · Visual Storyteller</p>
+      <p class="hero-tagline" data-i18n="hero-tagline">Editor · Pós-produção · Roteirista · Visual Storyteller</p>
     </div>
     <!-- Award laurels -->
     <div class="hero-awards">
@@ -805,7 +852,7 @@
           <path d="M7 35C2 31 0 25 2 18C5 22 7 28 7 35Z" fill="currentColor" opacity="0.82"/>
           <path d="M7 24C3 19 2 12 5 6C8 11 8 18 7 24Z" fill="currentColor" opacity="0.74"/>
         </svg>
-        <span class="award-name">Melhor<br>Montagem</span>
+        <span class="award-name" data-i18n-html="award-1">Melhor<br>Montagem</span>
         <svg class="award-branch" viewBox="0 0 18 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
           <path d="M9 54C7 45 5 36 4 27C3 18 5 10 9 4" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
           <path d="M8 46C3 43 0 37 1 31C5 34 8 40 8 46Z" fill="currentColor" opacity="0.9"/>
@@ -820,7 +867,7 @@
           <path d="M7 35C2 31 0 25 2 18C5 22 7 28 7 35Z" fill="currentColor" opacity="0.82"/>
           <path d="M7 24C3 19 2 12 5 6C8 11 8 18 7 24Z" fill="currentColor" opacity="0.74"/>
         </svg>
-        <span class="award-name">Melhor<br>Documentário</span>
+        <span class="award-name" data-i18n-html="award-2">Melhor<br>Documentário</span>
         <svg class="award-branch" viewBox="0 0 18 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
           <path d="M9 54C7 45 5 36 4 27C3 18 5 10 9 4" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
           <path d="M8 46C3 43 0 37 1 31C5 34 8 40 8 46Z" fill="currentColor" opacity="0.9"/>
@@ -835,7 +882,7 @@
           <path d="M7 35C2 31 0 25 2 18C5 22 7 28 7 35Z" fill="currentColor" opacity="0.82"/>
           <path d="M7 24C3 19 2 12 5 6C8 11 8 18 7 24Z" fill="currentColor" opacity="0.74"/>
         </svg>
-        <span class="award-name">Melhor Filme<br>Institucional</span>
+        <span class="award-name" data-i18n-html="award-3">Melhor Filme<br>Institucional</span>
         <svg class="award-branch" viewBox="0 0 18 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
           <path d="M9 54C7 45 5 36 4 27C3 18 5 10 9 4" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
           <path d="M8 46C3 43 0 37 1 31C5 34 8 40 8 46Z" fill="currentColor" opacity="0.9"/>
@@ -849,10 +896,10 @@
 
   <!-- About -->
   <section id="about">
-    <div class="section-label">Sobre</div>
+    <div class="section-label" data-i18n="label-about">Sobre</div>
     <div class="about-grid">
       <div>
-        <p class="about-text reveal">
+        <p class="about-text reveal" data-i18n-html="about-text">
           Psicólogo e designer gráfico com mais de <em>15 anos de experiência</em> na indústria audiovisual.
           Editor, pós-produtor e roteirista com trabalhos exibidos em Berlim, Apple TV, MUBI e TV aberta.
           <br><br>
@@ -865,44 +912,44 @@
   <!-- Info strip -->
   <div class="info-strip">
     <div class="info-col reveal">
-      <p class="about-block-title">Experiência</p>
+      <p class="about-block-title" data-i18n="info-experience">Experiência</p>
       <ul class="about-list">
-        <li>Jacarandá Áudio <span>2025 — atual</span></li>
+        <li>Jacarandá Áudio <span>2025 — <span data-i18n="info-current">atual</span></span></li>
         <li>Amicci <span>2021 — 2023</span></li>
         <li>Marahu Filmes <span>2016 — 2019</span></li>
         <li>Clarté <span>2010 — 2016</span></li>
       </ul>
     </div>
     <div class="info-col reveal">
-      <p class="about-block-title">Competências</p>
+      <p class="about-block-title" data-i18n="info-skills">Competências</p>
       <ul class="about-list">
-        <li>Edição <span>Premiere · DaVinci</span></li>
-        <li>Pós-produção <span>Color · VFX</span></li>
-        <li>Roteiro <span>Séries · Longa</span></li>
-        <li>Direção de Fotografia <span>Documentário</span></li>
+        <li><span data-i18n="skill-editing">Edição</span> <span>Premiere · DaVinci</span></li>
+        <li><span data-i18n="skill-post">Pós-produção</span> <span>Color · VFX</span></li>
+        <li><span data-i18n="skill-writing">Roteiro</span> <span data-i18n="skill-writing-detail">Séries · Longa</span></li>
+        <li><span data-i18n="skill-dop">Direção de Fotografia</span> <span data-i18n="skill-dop-detail">Documentário</span></li>
       </ul>
     </div>
     <div class="info-col reveal">
-      <p class="about-block-title">Formação</p>
+      <p class="about-block-title" data-i18n="info-education">Formação</p>
       <ul class="about-list">
-        <li>Técnico em Design Gráfico <span>Anhembi Morumbi</span></li>
-        <li>Psicologia <span>UFPA</span></li>
+        <li><span data-i18n="edu-design">Técnico em Design Gráfico</span> <span>Anhembi Morumbi</span></li>
+        <li><span data-i18n="edu-psych">Psicologia</span> <span>UFPA</span></li>
       </ul>
     </div>
   </div>
 
   <!-- Portfolio -->
   <section id="portfolio">
-    <div class="section-label">Portfólio</div>
+    <div class="section-label" data-i18n="label-portfolio">Portfólio</div>
     <div class="portfolio-header">
-      <h2 class="portfolio-title reveal">Trabalhos <em style="font-style:normal;color:var(--accent);font-family:var(--font-display);font-weight:400;">selecionados</em></h2>
+      <h2 class="portfolio-title reveal" data-i18n-html="portfolio-title">Trabalhos <em style="font-style:normal;color:var(--accent);font-family:var(--font-display);font-weight:400;">selecionados</em></h2>
       <div class="filter-row">
-        <button class="filter-btn active" data-filter="all">Todos</button>
-        <button class="filter-btn" data-filter="serie">Série</button>
-        <button class="filter-btn" data-filter="documentario">Documentário</button>
-        <button class="filter-btn" data-filter="curta">Curta</button>
-        <button class="filter-btn" data-filter="videoclipe">Videoclipe</button>
-        <button class="filter-btn" data-filter="publicidade">Publicidade</button>
+        <button class="filter-btn active" data-filter="all" data-i18n="filter-all">Todos</button>
+        <button class="filter-btn" data-filter="serie" data-i18n="filter-serie">Série</button>
+        <button class="filter-btn" data-filter="documentario" data-i18n="filter-doc">Documentário</button>
+        <button class="filter-btn" data-filter="curta" data-i18n="filter-short">Curta</button>
+        <button class="filter-btn" data-filter="videoclipe" data-i18n="filter-music">Videoclipe</button>
+        <button class="filter-btn" data-filter="publicidade" data-i18n="filter-ad">Publicidade</button>
       </div>
     </div>
 
@@ -914,19 +961,19 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <div>
-              <p class="project-watch">Em finalização</p>
+              <p class="project-watch" data-i18n="watch-in-post">Em finalização</p>
               <h3 class="project-overlay-title">GUERREIRAS</h3>
               <div class="project-overlay-meta">
                 <span>2026</span>
-                <span>Coordenador de pós-produção</span>
+                <span data-i18n="role-guerreiras">Coordenador de pós-produção</span>
               </div>
             </div>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Série · TV/Streaming</p>
+          <p class="project-type" data-i18n="type-serie-streaming">Série · TV/Streaming</p>
           <a class="project-title" href="#" target="_blank">GUERREIRAS</a>
-          <p class="project-role">Coordenador de pós-produção</p>
+          <p class="project-role" data-i18n="role-guerreiras">Coordenador de pós-produção</p>
         </div>
       </article>
 
@@ -936,19 +983,19 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://tv.apple.com/br/show/sabores-da-floresta/umc.cmc.2yg6v5d1xkurky9avht82vxo" target="_blank">
-              <p class="project-watch">Assistir no Apple TV →</p>
+              <p class="project-watch" data-i18n="watch-apple">Assistir no Apple TV →</p>
               <h3 class="project-overlay-title">Sabores da Floresta</h3>
               <div class="project-overlay-meta">
-                <span>Temp. 01 — 2018 · Temp. 02 — 2025</span>
-                <span>Editor</span>
+                <span data-i18n="sabores-dates">Temp. 01 — 2018 · Temp. 02 — 2025</span>
+                <span data-i18n="role-editor">Editor</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Série · Apple TV</p>
+          <p class="project-type" data-i18n="type-serie-appletv">Série · Apple TV</p>
           <a class="project-title" href="https://tv.apple.com/br/show/sabores-da-floresta/umc.cmc.2yg6v5d1xkurky9avht82vxo" target="_blank">Sabores da Floresta</a>
-          <p class="project-role">Editor — Temporadas 01 e 02</p>
+          <p class="project-role" data-i18n="role-sabores">Editor — Temporadas 01 e 02</p>
         </div>
       </article>
 
@@ -962,15 +1009,15 @@
               <h3 class="project-overlay-title">Lar Doce Lar</h3>
               <div class="project-overlay-meta">
                 <span>2025</span>
-                <span>Roteirista</span>
+                <span data-i18n="role-writer">Roteirista</span>
               </div>
             </div>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Série TV/Streaming</p>
+          <p class="project-type" data-i18n="type-serie-streaming">Série TV/Streaming</p>
           <a class="project-title" href="#" target="_blank">Lar Doce Lar</a>
-          <p class="project-role">Roteirista</p>
+          <p class="project-role" data-i18n="role-writer">Roteirista</p>
         </div>
       </article>
 
@@ -980,19 +1027,19 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://www.oliberal.com/cultura/exclusivo-lia-sophia-percorre-a-amazonia-na-serie-documentalrios-de-encantarias-1.863976" target="_blank">
-              <p class="project-watch">Ver matéria →</p>
+              <p class="project-watch" data-i18n="watch-article">Ver matéria →</p>
               <h3 class="project-overlay-title">Rios de Encantarias</h3>
               <div class="project-overlay-meta">
                 <span>2025</span>
-                <span>Editor · Colorista</span>
+                <span data-i18n="role-editor-colorist">Editor · Colorista</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Série · TV/Streaming</p>
+          <p class="project-type" data-i18n="type-serie-streaming">Série · TV/Streaming</p>
           <a class="project-title" href="https://www.oliberal.com/cultura/exclusivo-lia-sophia-percorre-a-amazonia-na-serie-documentalrios-de-encantarias-1.863976" target="_blank">Rios de Encantarias</a>
-          <p class="project-role">Editor · Colorista</p>
+          <p class="project-role" data-i18n="role-editor-colorist">Editor · Colorista</p>
         </div>
       </article>
 
@@ -1002,19 +1049,19 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://marahu.com/bar-brasil/" target="_blank">
-              <p class="project-watch">Ver página →</p>
+              <p class="project-watch" data-i18n="watch-page">Ver página →</p>
               <h3 class="project-overlay-title">Bar Brasil</h3>
               <div class="project-overlay-meta">
                 <span>2024</span>
-                <span>Editor</span>
+                <span data-i18n="role-editor">Editor</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Série TV/Streaming</p>
+          <p class="project-type" data-i18n="type-serie-streaming">Série TV/Streaming</p>
           <a class="project-title" href="#" target="_blank">Bar Brasil</a>
-          <p class="project-role">Editor</p>
+          <p class="project-role" data-i18n="role-editor">Editor</p>
         </div>
       </article>
 
@@ -1024,19 +1071,19 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://www.sommosamazonia.art.br/pt/serie/olhares-do-norte/" target="_blank">
-              <p class="project-watch">Assista na Sommos →</p>
+              <p class="project-watch" data-i18n="watch-sommos">Assista na Sommos →</p>
               <h3 class="project-overlay-title">Olhares do Norte</h3>
               <div class="project-overlay-meta">
                 <span>2024</span>
-                <span>Editor · Colorista</span>
+                <span data-i18n="role-editor-colorist">Editor · Colorista</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Série · Sommos</p>
+          <p class="project-type" data-i18n="type-serie-sommos">Série · Sommos</p>
           <a class="project-title" href="https://www.sommosamazonia.art.br/pt/serie/olhares-do-norte/" target="_blank">Olhares do Norte</a>
-          <p class="project-role">Editor · Colorista</p>
+          <p class="project-role" data-i18n="role-editor-colorist">Editor · Colorista</p>
         </div>
       </article>
 
@@ -1046,20 +1093,20 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://www.youtube.com/watch?v=Sh8nuLtGY9E&list=PL2yltlRjDVVHBvzDVHUkw8EYNe4B3kHcH" target="_blank">
-              <p class="project-watch">Assistir no YouTube →</p>
+              <p class="project-watch" data-i18n="watch-youtube">Assistir no YouTube →</p>
               <h3 class="project-overlay-title">Popsulas</h3>
               <div class="project-overlay-meta">
                 <span>2022</span>
-                <span>Editor</span>
-                <span>Canal E!</span>
+                <span data-i18n="role-editor">Editor</span>
+                <span data-i18n="channel-e">Canal E!</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Websérie · Canal E!</p>
+          <p class="project-type" data-i18n="type-webserie">Websérie · Canal E!</p>
           <a class="project-title" href="https://www.youtube.com/watch?v=Sh8nuLtGY9E&list=PL2yltlRjDVVHBvzDVHUkw8EYNe4B3kHcH" target="_blank">Popsulas</a>
-          <p class="project-role">Editor</p>
+          <p class="project-role" data-i18n="role-editor">Editor</p>
         </div>
       </article>
 
@@ -1069,20 +1116,20 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://www.youtube.com/c/ThiagoCastanhoPar%C3%A1" target="_blank">
-              <p class="project-watch">Assistir →</p>
+              <p class="project-watch" data-i18n="watch-generic">Assistir →</p>
               <h3 class="project-overlay-title">Canal Thiago Castanho — YouTube</h3>
               <div class="project-overlay-meta">
-                <span>Desde 2021</span>
-                <span>Editor · Desenvolvimento de Formatos</span>
-                <span class="project-award">+150.000 inscritos · Prêmio Criador de Prata</span>
+                <span data-i18n="since-2021">Desde 2021</span>
+                <span data-i18n="role-castanho">Editor · Desenvolvimento de Formatos</span>
+                <span class="project-award" data-i18n="award-castanho">+150.000 inscritos · Prêmio Criador de Prata</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Canal YouTube</p>
+          <p class="project-type" data-i18n="type-youtube">Canal YouTube</p>
           <a class="project-title" href="https://www.youtube.com/c/ThiagoCastanhoPar%C3%A1" target="_blank">Canal Thiago Castanho — YouTube</a>
-          <p class="project-role">Editor · Desenvolvimento de Formatos</p>
+          <p class="project-role" data-i18n="role-castanho">Editor · Desenvolvimento de Formatos</p>
         </div>
       </article>
 
@@ -1092,20 +1139,20 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://mubi.com/pt/br/films/amazon-mirror" target="_blank">
-              <p class="project-watch">Assistir no MUBI →</p>
+              <p class="project-watch" data-i18n="watch-mubi">Assistir no MUBI →</p>
               <h3 class="project-overlay-title">O Reflexo do Lago</h3>
               <div class="project-overlay-meta">
                 <span>2018</span>
-                <span>2º Dir. de Fotografia</span>
+                <span data-i18n="role-reflexo">2º Dir. de Fotografia</span>
                 <span class="project-award">Berlinale 70ª ed. · MUBI · Dokufest</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Documentário de longa-metragem</p>
+          <p class="project-type" data-i18n="type-doc-feature">Documentário de longa-metragem</p>
           <a class="project-title" href="https://mubi.com" target="_blank">O Reflexo do Lago <em>(Amazon Mirror)</em></a>
-          <p class="project-role">2º Diretor de Fotografia · Fotógrafo de cena</p>
+          <p class="project-role" data-i18n="role-reflexo-full">2º Diretor de Fotografia · Fotógrafo de cena</p>
         </div>
       </article>
 
@@ -1115,20 +1162,20 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://youtu.be/IIA0_-BpzDM?si=Ro4zXx0CnEnB_DCO" target="_blank">
-              <p class="project-watch">Assistir →</p>
+              <p class="project-watch" data-i18n="watch-generic">Assistir →</p>
               <h3 class="project-overlay-title">Canção do Amor Perfeito</h3>
               <div class="project-overlay-meta">
                 <span>2018</span>
-                <span>Co-Diretor · Editor</span>
-                <span class="project-award">Melhor fotografia — Mostra Sesc de Cinema/2018</span>
+                <span data-i18n="role-codirector-editor">Co-Diretor · Editor</span>
+                <span class="project-award" data-i18n="award-cancao">Melhor fotografia — Mostra Sesc de Cinema/2018</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Curta Ficção</p>
+          <p class="project-type" data-i18n="type-short-fiction">Curta Ficção</p>
           <a class="project-title" href="https://marahu.com/cancao-do-amor-perfeito" target="_blank">Canção do Amor Perfeito</a>
-          <p class="project-role">Co-Diretor · Editor</p>
+          <p class="project-role" data-i18n="role-codirector-editor">Co-Diretor · Editor</p>
         </div>
       </article>
 
@@ -1138,20 +1185,20 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://www.brde.com.br/wp-content/uploads/2016/05/PRODAV-032015_resultado_final.pdf" target="_blank">
-              <p class="project-watch">Ver documento →</p>
-              <h3 class="project-overlay-title">Núcleo Criativo de Roteiros (Clarté)</h3>
+              <p class="project-watch" data-i18n="watch-doc">Ver documento →</p>
+              <h3 class="project-overlay-title" data-i18n="title-nucleo">Núcleo Criativo de Roteiros (Clarté)</h3>
               <div class="project-overlay-meta">
                 <span>2017–2018</span>
-                <span>Roteirista</span>
+                <span data-i18n="role-writer">Roteirista</span>
                 <span class="project-award">Residencial Pindorama · Yórum</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Núcleo Criativo</p>
-          <a class="project-title" href="https://www.brde.com.br/wp-content/uploads/2016/05/PRODAV-032015_resultado_final.pdf" target="_blank">Núcleo Criativo de Roteiros (Clarté)</a>
-          <p class="project-role">Roteirista — Série Residencial Pindorama · Longa Yórum</p>
+          <p class="project-type" data-i18n="type-creative-lab">Núcleo Criativo</p>
+          <a class="project-title" href="https://www.brde.com.br/wp-content/uploads/2016/05/PRODAV-032015_resultado_final.pdf" target="_blank" data-i18n="title-nucleo">Núcleo Criativo de Roteiros (Clarté)</a>
+          <p class="project-role" data-i18n="role-nucleo">Roteirista — Série Residencial Pindorama · Longa Yórum</p>
         </div>
       </article>
 
@@ -1161,20 +1208,20 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://amazoniaflix.com.br/filme/o-caminho-das-pedras" target="_blank">
-              <p class="project-watch">Assistir no Amazônia Flix →</p>
+              <p class="project-watch" data-i18n="watch-amazoniaflix">Assistir no Amazônia Flix →</p>
               <h3 class="project-overlay-title">O Caminho das Pedras</h3>
               <div class="project-overlay-meta">
                 <span>2017</span>
-                <span>Co-Diretor · Editor</span>
-                <span class="project-award">Melhor documentário — Festival Cinema Étnico do Pará 2017</span>
+                <span data-i18n="role-codirector-editor">Co-Diretor · Editor</span>
+                <span class="project-award" data-i18n="award-pedras">Melhor documentário — Festival Cinema Étnico do Pará 2017</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Documentário de curta-metragem</p>
+          <p class="project-type" data-i18n="type-short-doc">Documentário de curta-metragem</p>
           <a class="project-title" href="#" target="_blank">O Caminho das Pedras</a>
-          <p class="project-role">Co-Diretor · Editor</p>
+          <p class="project-role" data-i18n="role-codirector-editor">Co-Diretor · Editor</p>
         </div>
       </article>
 
@@ -1184,20 +1231,20 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://youtu.be/jt-CAaaWvbo?si=ITzq2BsksDfWc5L9" target="_blank">
-              <p class="project-watch">Assistir →</p>
+              <p class="project-watch" data-i18n="watch-generic">Assistir →</p>
               <h3 class="project-overlay-title">Juliana Sinimbú — Lança</h3>
               <div class="project-overlay-meta">
                 <span>2017</span>
-                <span>Editor</span>
-                <span class="project-award">Melhor edição — Festival Maranhão na Tela 2018</span>
+                <span data-i18n="role-editor">Editor</span>
+                <span class="project-award" data-i18n="award-lanca">Melhor edição — Festival Maranhão na Tela 2018</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Videoclipe Musical</p>
+          <p class="project-type" data-i18n="type-musicvideo">Videoclipe Musical</p>
           <a class="project-title" href="#" target="_blank">Juliana Sinimbú — Lança</a>
-          <p class="project-role">Editor · <em style="color:var(--accent)">Melhor Edição · Festival Maranhão na Tela 2018</em></p>
+          <p class="project-role" data-i18n-html="role-lanca">Editor · <em style="color:var(--accent)">Melhor Edição · Festival Maranhão na Tela 2018</em></p>
         </div>
       </article>
 
@@ -1207,19 +1254,19 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://globoplay.globo.com/v/6307461/?s=0s" target="_blank">
-              <p class="project-watch">Assista na Globoplay →</p>
+              <p class="project-watch" data-i18n="watch-globoplay">Assista na Globoplay →</p>
               <h3 class="project-overlay-title">Diz Aí — Juventude Rural</h3>
               <div class="project-overlay-meta">
                 <span>2016</span>
-                <span>Diretor · Fotógrafo · Editor</span>
+                <span data-i18n="role-dir-photo-editor">Diretor · Fotógrafo · Editor</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Série · Globoplay</p>
+          <p class="project-type" data-i18n="type-serie-globo">Série · Globoplay</p>
           <a class="project-title" href="https://globoplay.globo.com/v/6307461/?s=0s" target="_blank">Diz Aí — Juventude Rural</a>
-          <p class="project-role">Diretor · Fotógrafo · Editor</p>
+          <p class="project-role" data-i18n="role-dir-photo-editor">Diretor · Fotógrafo · Editor</p>
         </div>
       </article>
 
@@ -1229,20 +1276,20 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://www.youtube.com/watch?v=I-EbkC2EsHc" target="_blank">
-              <p class="project-watch">Assistir →</p>
+              <p class="project-watch" data-i18n="watch-generic">Assistir →</p>
               <h3 class="project-overlay-title">A Batalha de São Bráz</h3>
               <div class="project-overlay-meta">
                 <span>2016</span>
-                <span>Segunda unidade de câmera</span>
+                <span data-i18n="role-second-unit">Segunda unidade de câmera</span>
                 <span class="project-award">In-Edit · Mimo · Melhor Doc. · Melhor Curta · Júri Popular — FAB · Sesc 2017</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Documentário de curta-metragem</p>
+          <p class="project-type" data-i18n="type-short-doc">Documentário de curta-metragem</p>
           <a class="project-title" href="https://www.youtube.com/watch?v=I-EbkC2EsHc" target="_blank">A Batalha de São Bráz</a>
-          <p class="project-role">Segunda unidade de câmera</p>
+          <p class="project-role" data-i18n="role-second-unit">Segunda unidade de câmera</p>
         </div>
       </article>
 
@@ -1252,66 +1299,66 @@
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://youtu.be/n1SlZ2pH2UA?si=-YCJeHEPuICaEngB" target="_blank">
-              <p class="project-watch">Assistir →</p>
+              <p class="project-watch" data-i18n="watch-generic">Assistir →</p>
               <h3 class="project-overlay-title">Diz Aí Amazônida</h3>
               <div class="project-overlay-meta">
                 <span>2015</span>
-                <span>Co-diretor · Editor</span>
-                <span class="project-award">Indicada — Televisión América Latina</span>
+                <span data-i18n="role-codirector-editor-lower">Co-diretor · Editor</span>
+                <span class="project-award" data-i18n="award-dizai">Indicada — Televisión América Latina</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Série TV/Streaming</p>
+          <p class="project-type" data-i18n="type-serie-streaming">Série TV/Streaming</p>
           <a class="project-title" href="#" target="_blank">Diz Aí Amazônida</a>
-          <p class="project-role">Co-diretor · Editor</p>
+          <p class="project-role" data-i18n="role-codirector-editor-lower">Co-diretor · Editor</p>
         </div>
       </article>
 
-      <!-- 16 · 2013 -->
+      <!-- 17 · 2013 -->
       <article class="project-item reveal" data-category="documentario" data-thumbnail="assets/images/nmf3.jpg">
         <div class="project-thumb">
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://www.youtube.com/watch?v=LQr7otNrwPo" target="_blank">
-              <p class="project-watch">Assistir →</p>
+              <p class="project-watch" data-i18n="watch-generic">Assistir →</p>
               <h3 class="project-overlay-title">No Movimento da Fé</h3>
               <div class="project-overlay-meta">
                 <span>2013</span>
-                <span>Co-editor</span>
-                <span class="project-award">Melhor montagem · Melhor trilha · Escolha do público — CINEPE 2014</span>
+                <span data-i18n="role-coeditor">Co-editor</span>
+                <span class="project-award" data-i18n="award-nmf">Melhor montagem · Melhor trilha · Escolha do público — CINEPE 2014</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Curta-documentário</p>
+          <p class="project-type" data-i18n="type-short-doc2">Curta-documentário</p>
           <a class="project-title" href="#" target="_blank">No Movimento da Fé <em>(Moved by Faith)</em></a>
-          <p class="project-role">Co-editor · <em style="color:var(--accent)">3 prêmios CINEPE 2014</em></p>
+          <p class="project-role" data-i18n-html="role-nmf">Co-editor · <em style="color:var(--accent)">3 prêmios CINEPE 2014</em></p>
         </div>
       </article>
 
-      <!-- 17 · 2013 -->
+      <!-- 18 · 2013 -->
       <article class="project-item reveal" data-category="publicidade" data-thumbnail="assets/images/saudequestao.png">
         <div class="project-thumb">
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
             <a href="https://youtu.be/ESF0yzcmJHc?si=Pk299yXXcbKnWJqK" target="_blank">
-              <p class="project-watch">Assistir →</p>
-              <h3 class="project-overlay-title">Saúde é uma Questão de Felicidade</h3>
+              <p class="project-watch" data-i18n="watch-generic">Assistir →</p>
+              <h3 class="project-overlay-title" data-i18n="title-saude">Saúde é uma Questão de Felicidade</h3>
               <div class="project-overlay-meta">
                 <span>2013</span>
-                <span>Co-diretor · Editor</span>
-                <span class="project-award">Prêmio Diário de Publicidade 2013</span>
+                <span data-i18n="role-codirector-editor">Co-diretor · Editor</span>
+                <span class="project-award" data-i18n="award-saude">Prêmio Diário de Publicidade 2013</span>
               </div>
             </a>
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Filme Institucional</p>
-          <a class="project-title" href="#" target="_blank">Saúde é uma Questão de Felicidade</a>
-          <p class="project-role">Co-diretor · Editor · <em style="color:var(--accent)">Prêmio Diário de Publicidade</em></p>
+          <p class="project-type" data-i18n="type-institutional">Filme Institucional</p>
+          <a class="project-title" href="#" target="_blank" data-i18n="title-saude">Saúde é uma Questão de Felicidade</a>
+          <p class="project-role" data-i18n-html="role-saude">Co-diretor · Editor · <em style="color:var(--accent)">Prêmio Diário de Publicidade</em></p>
         </div>
       </article>
 
@@ -1320,20 +1367,20 @@
 
   <!-- Estudos de Caso -->
   <section id="estudos">
-    <div class="section-label">Estudos de caso</div>
+    <div class="section-label" data-i18n="label-cases">Estudos de caso</div>
     <a href="nexus-pen-case-study.html" class="case-strip reveal">
       <div class="case-strip-visual" style="background-image:url('assets/images/magnific__hero-product-shot-of-a-sleek-futuristic-matte-blac__13293.png')"></div>
       <div class="case-strip-info">
-        <p class="case-strip-cat">Publicidade · Conceitual · 2025</p>
+        <p class="case-strip-cat" data-i18n="case-cat">Publicidade · Conceitual · 2025</p>
         <h3 class="case-strip-title">Nexus Pen</h3>
-        <p class="case-strip-desc">Um experimento criativo com IA — do naming ao roteiro, da geração de imagens à edição final em 15 segundos.</p>
+        <p class="case-strip-desc" data-i18n="case-desc">Um experimento criativo com IA — do naming ao roteiro, da geração de imagens à edição final em 15 segundos.</p>
         <div class="case-strip-tools">
           <span class="case-strip-tool">Claude</span>
           <span class="case-strip-tool">Magnific</span>
           <span class="case-strip-tool">Higgsfield</span>
           <span class="case-strip-tool">DaVinci</span>
         </div>
-        <span class="case-strip-cta">Ver estudo de caso</span>
+        <span class="case-strip-cta" data-i18n="case-cta">Ver estudo de caso</span>
       </div>
     </a>
   </section>
@@ -1370,40 +1417,241 @@
   <!-- Footer -->
   <footer>
     <span>© 2025 Alexandre Nogueira</span>
-    <span>São Paulo, Brasil</span>
+    <span data-i18n="footer-location">São Paulo, Brasil</span>
   </footer>
 
   <script>
-    // Hero carousel
+    /* ── Translations ── */
+    const i18n = {
+      pt: {
+        'nav-portfolio': 'Portfólio',
+        'nav-about': 'Sobre',
+        'nav-cases': 'Casos',
+        'nav-contact': 'Contato',
+        'hero-tagline': 'Editor · Pós-produção · Roteirista · Visual Storyteller',
+        'award-1': 'Melhor<br>Montagem',
+        'award-2': 'Melhor<br>Documentário',
+        'award-3': 'Melhor Filme<br>Institucional',
+        'label-about': 'Sobre',
+        'label-portfolio': 'Portfólio',
+        'label-cases': 'Estudos de caso',
+        'about-text': 'Psicólogo e designer gráfico com mais de <em>15 anos de experiência</em> na indústria audiovisual. Editor, pós-produtor e roteirista com trabalhos exibidos em Berlim, Apple TV, MUBI e TV aberta.<br><br>Uma trajetória construída entre a <em>Amazônia e São Paulo</em> — do documentário à série, do videoclipe ao roteiro.',
+        'info-experience': 'Experiência',
+        'info-skills': 'Competências',
+        'info-education': 'Formação',
+        'info-current': 'atual',
+        'skill-editing': 'Edição',
+        'skill-post': 'Pós-produção',
+        'skill-writing': 'Roteiro',
+        'skill-writing-detail': 'Séries · Longa',
+        'skill-dop': 'Direção de Fotografia',
+        'skill-dop-detail': 'Documentário',
+        'edu-design': 'Técnico em Design Gráfico',
+        'edu-psych': 'Psicologia',
+        'portfolio-title': 'Trabalhos <em style="font-style:normal;color:var(--accent);font-family:var(--font-display);font-weight:400;">selecionados</em>',
+        'filter-all': 'Todos',
+        'filter-serie': 'Série',
+        'filter-doc': 'Documentário',
+        'filter-short': 'Curta',
+        'filter-music': 'Videoclipe',
+        'filter-ad': 'Publicidade',
+        'watch-in-post': 'Em finalização',
+        'watch-apple': 'Assistir no Apple TV →',
+        'watch-article': 'Ver matéria →',
+        'watch-page': 'Ver página →',
+        'watch-sommos': 'Assista na Sommos →',
+        'watch-youtube': 'Assistir no YouTube →',
+        'watch-generic': 'Assistir →',
+        'watch-mubi': 'Assistir no MUBI →',
+        'watch-amazoniaflix': 'Assistir no Amazônia Flix →',
+        'watch-globoplay': 'Assista na Globoplay →',
+        'watch-doc': 'Ver documento →',
+        'type-serie-streaming': 'Série · TV/Streaming',
+        'type-serie-appletv': 'Série · Apple TV',
+        'type-serie-sommos': 'Série · Sommos',
+        'type-webserie': 'Websérie · Canal E!',
+        'type-youtube': 'Canal YouTube',
+        'type-doc-feature': 'Documentário de longa-metragem',
+        'type-short-fiction': 'Curta Ficção',
+        'type-creative-lab': 'Núcleo Criativo',
+        'type-short-doc': 'Documentário de curta-metragem',
+        'type-musicvideo': 'Videoclipe Musical',
+        'type-serie-globo': 'Série · Globoplay',
+        'type-short-doc2': 'Curta-documentário',
+        'type-institutional': 'Filme Institucional',
+        'role-guerreiras': 'Coordenador de pós-produção',
+        'role-editor': 'Editor',
+        'role-editor-colorist': 'Editor · Colorista',
+        'role-sabores': 'Editor — Temporadas 01 e 02',
+        'role-writer': 'Roteirista',
+        'role-castanho': 'Editor · Desenvolvimento de Formatos',
+        'role-reflexo': '2º Dir. de Fotografia',
+        'role-reflexo-full': '2º Diretor de Fotografia · Fotógrafo de cena',
+        'role-codirector-editor': 'Co-Diretor · Editor',
+        'role-codirector-editor-lower': 'Co-diretor · Editor',
+        'role-nucleo': 'Roteirista — Série Residencial Pindorama · Longa Yórum',
+        'role-second-unit': 'Segunda unidade de câmera',
+        'role-coeditor': 'Co-editor',
+        'role-dir-photo-editor': 'Diretor · Fotógrafo · Editor',
+        'role-lanca': 'Editor · <em style="color:var(--accent)">Melhor Edição · Festival Maranhão na Tela 2018</em>',
+        'role-nmf': 'Co-editor · <em style="color:var(--accent)">3 prêmios CINEPE 2014</em>',
+        'role-saude': 'Co-diretor · Editor · <em style="color:var(--accent)">Prêmio Diário de Publicidade</em>',
+        'sabores-dates': 'Temp. 01 — 2018 · Temp. 02 — 2025',
+        'since-2021': 'Desde 2021',
+        'channel-e': 'Canal E!',
+        'award-castanho': '+150.000 inscritos · Prêmio Criador de Prata',
+        'award-cancao': 'Melhor fotografia — Mostra Sesc de Cinema/2018',
+        'award-pedras': 'Melhor documentário — Festival Cinema Étnico do Pará 2017',
+        'award-lanca': 'Melhor edição — Festival Maranhão na Tela 2018',
+        'award-dizai': 'Indicada — Televisión América Latina',
+        'award-nmf': 'Melhor montagem · Melhor trilha · Escolha do público — CINEPE 2014',
+        'award-saude': 'Prêmio Diário de Publicidade 2013',
+        'title-nucleo': 'Núcleo Criativo de Roteiros (Clarté)',
+        'title-saude': 'Saúde é uma Questão de Felicidade',
+        'case-cat': 'Publicidade · Conceitual · 2025',
+        'case-desc': 'Um experimento criativo com IA — do naming ao roteiro, da geração de imagens à edição final em 15 segundos.',
+        'case-cta': 'Ver estudo de caso',
+        'footer-location': 'São Paulo, Brasil',
+      },
+      en: {
+        'nav-portfolio': 'Portfolio',
+        'nav-about': 'About',
+        'nav-cases': 'Cases',
+        'nav-contact': 'Contact',
+        'hero-tagline': 'Editor · Post-production · Screenwriter · Visual Storyteller',
+        'award-1': 'Best<br>Editing',
+        'award-2': 'Best<br>Documentary',
+        'award-3': 'Best Institutional<br>Film',
+        'label-about': 'About',
+        'label-portfolio': 'Portfolio',
+        'label-cases': 'Case Studies',
+        'about-text': 'Psychologist and graphic designer with over <em>15 years of experience</em> in the audiovisual industry. Editor, post-producer and screenwriter with works screened in Berlin, Apple TV, MUBI and broadcast TV.<br><br>A career built between <em>the Amazon and São Paulo</em> — from documentary to series, from music video to screenplay.',
+        'info-experience': 'Experience',
+        'info-skills': 'Skills',
+        'info-education': 'Education',
+        'info-current': 'present',
+        'skill-editing': 'Editing',
+        'skill-post': 'Post-production',
+        'skill-writing': 'Screenwriting',
+        'skill-writing-detail': 'Series · Feature',
+        'skill-dop': 'Cinematography',
+        'skill-dop-detail': 'Documentary',
+        'edu-design': 'Graphic Design Technician',
+        'edu-psych': 'Psychology',
+        'portfolio-title': 'Selected <em style="font-style:normal;color:var(--accent);font-family:var(--font-display);font-weight:400;">works</em>',
+        'filter-all': 'All',
+        'filter-serie': 'Series',
+        'filter-doc': 'Documentary',
+        'filter-short': 'Short Film',
+        'filter-music': 'Music Video',
+        'filter-ad': 'Advertising',
+        'watch-in-post': 'In post-production',
+        'watch-apple': 'Watch on Apple TV →',
+        'watch-article': 'Read article →',
+        'watch-page': 'View page →',
+        'watch-sommos': 'Watch on Sommos →',
+        'watch-youtube': 'Watch on YouTube →',
+        'watch-generic': 'Watch →',
+        'watch-mubi': 'Watch on MUBI →',
+        'watch-amazoniaflix': 'Watch on Amazônia Flix →',
+        'watch-globoplay': 'Watch on Globoplay →',
+        'watch-doc': 'View document →',
+        'type-serie-streaming': 'Series · TV/Streaming',
+        'type-serie-appletv': 'Series · Apple TV',
+        'type-serie-sommos': 'Series · Sommos',
+        'type-webserie': 'Web Series · E! Channel',
+        'type-youtube': 'YouTube Channel',
+        'type-doc-feature': 'Feature-length Documentary',
+        'type-short-fiction': 'Fiction Short Film',
+        'type-creative-lab': 'Creative Screenplay Lab',
+        'type-short-doc': 'Short Documentary',
+        'type-musicvideo': 'Music Video',
+        'type-serie-globo': 'Series · Globoplay',
+        'type-short-doc2': 'Short Documentary',
+        'type-institutional': 'Institutional Film',
+        'role-guerreiras': 'Post-production Coordinator',
+        'role-editor': 'Editor',
+        'role-editor-colorist': 'Editor · Colorist',
+        'role-sabores': 'Editor — Seasons 01 and 02',
+        'role-writer': 'Screenwriter',
+        'role-castanho': 'Editor · Format Development',
+        'role-reflexo': '2nd Unit DOP',
+        'role-reflexo-full': '2nd Unit Director of Photography · Still Photographer',
+        'role-codirector-editor': 'Co-Director · Editor',
+        'role-codirector-editor-lower': 'Co-director · Editor',
+        'role-nucleo': 'Screenwriter — Series Residencial Pindorama · Feature Yórum',
+        'role-second-unit': 'Second unit camera',
+        'role-coeditor': 'Co-editor',
+        'role-dir-photo-editor': 'Director · Photographer · Editor',
+        'role-lanca': 'Editor · <em style="color:var(--accent)">Best Editing · Festival Maranhão na Tela 2018</em>',
+        'role-nmf': 'Co-editor · <em style="color:var(--accent)">3 CINEPE 2014 awards</em>',
+        'role-saude': 'Co-director · Editor · <em style="color:var(--accent)">Prêmio Diário de Publicidade</em>',
+        'sabores-dates': 'Season 01 — 2018 · Season 02 — 2025',
+        'since-2021': 'Since 2021',
+        'channel-e': 'E! Channel',
+        'award-castanho': '+150K subscribers · Silver Creator Award',
+        'award-cancao': 'Best Cinematography — Mostra Sesc de Cinema 2018',
+        'award-pedras': 'Best Documentary — Festival Cinema Étnico do Pará 2017',
+        'award-lanca': 'Best Editing — Festival Maranhão na Tela 2018',
+        'award-dizai': 'Nominated — Televisión América Latina',
+        'award-nmf': 'Best Editing · Best Score · Audience Choice — CINEPE 2014',
+        'award-saude': 'Prêmio Diário de Publicidade 2013',
+        'title-nucleo': 'Creative Screenplay Lab (Clarté)',
+        'title-saude': 'Health is a Matter of Happiness',
+        'case-cat': 'Advertising · Conceptual · 2025',
+        'case-desc': 'A creative AI experiment — from naming to script, from image generation to the final 15-second edit.',
+        'case-cta': 'View case study',
+        'footer-location': 'São Paulo, Brazil',
+      }
+    };
+
+    let currentLang = localStorage.getItem('lang') || 'pt';
+
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+      document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+
+      document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+      document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+
+      const dict = i18n[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.dataset.i18nHtml;
+        if (dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+    }
+
+    // Apply saved language on load
+    setLang(currentLang);
+
+    /* ── Hero carousel ── */
     const carousel = document.getElementById('heroCarousel');
     if (carousel) {
       const slides = carousel.querySelectorAll('.hero-carousel-slide');
       let currentIndex = 0;
-      const totalSlides = slides.length;
-      const autoPlayInterval = 4000; // 4 segundos por slide
-
       function showSlide(index) {
-        slides.forEach((slide, i) => {
-          slide.classList.toggle('active', i === index);
-        });
+        slides.forEach((s, i) => s.classList.toggle('active', i === index));
       }
-
-      function nextSlide() {
-        currentIndex = (currentIndex + 1) % totalSlides;
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
         showSlide(currentIndex);
-      }
-
-      // Auto-play carousel
-      setInterval(nextSlide, autoPlayInterval);
+      }, 4000);
     }
 
-    // Sticky nav
+    /* ── Sticky nav ── */
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 60);
     });
 
-    // Scroll reveal
+    /* ── Scroll reveal ── */
     const revealEls = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(entries => {
       entries.forEach((entry, i) => {
@@ -1415,7 +1663,7 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
 
-    // Load thumbnails
+    /* ── Load thumbnails ── */
     const projectItems = document.querySelectorAll('.project-item');
     projectItems.forEach(item => {
       const thumbnail = item.dataset.thumbnail;
@@ -1429,7 +1677,7 @@
       }
     });
 
-    // Make thumbnails clickable when overlay links exist
+    /* ── Clickable thumbnails ── */
     projectItems.forEach(item => {
       const thumb = item.querySelector('.project-thumb');
       const overlayAnchor = item.querySelector('.project-overlay a');
@@ -1442,9 +1690,8 @@
       }
     });
 
-    // Filter
+    /* ── Filter ── */
     const filterBtns = document.querySelectorAll('.filter-btn');
-
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
