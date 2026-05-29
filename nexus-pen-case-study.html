@@ -53,12 +53,32 @@ nav {
   letter-spacing: 0.25em; text-transform: uppercase;
   color: var(--gray3);
 }
+.nav-right {
+  display: flex; align-items: center; gap: 14px;
+}
 .nav-tag {
   font-size: 10px; font-weight: 500;
   letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--gold); border: 0.5px solid var(--gold-dim);
   border-radius: 2px; padding: 3px 10px;
 }
+.lang-toggle {
+  display: flex; align-items: center;
+  border: 0.5px solid rgba(201,169,110,0.35);
+  border-radius: 2px; overflow: hidden;
+}
+.lang-btn {
+  background: transparent; border: none;
+  color: rgba(234,231,223,0.5);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 10px; transition: color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+.lang-btn:hover { color: var(--white); }
+.lang-btn.active { background: var(--gold); color: var(--black); }
+.lang-sep { width: 0.5px; height: 14px; background: rgba(201,169,110,0.25); }
 
 /* ── HERO ── */
 .hero {
@@ -70,20 +90,10 @@ nav {
 }
 .hero-bg {
   position: absolute; inset: 0;
-  background: linear-gradient(
-    to bottom,
-    #0A0A0A 0%,
-    #0C0C0E 30%,
-    #0E0E12 60%,
-    #0A0A0A 100%
-  );
+  background: linear-gradient(to bottom, #0A0A0A 0%, #0C0C0E 30%, #0E0E12 60%, #0A0A0A 100%);
 }
-.hero-stars {
-  position: absolute; inset: 0; pointer-events: none;
-}
-.star {
-  position: absolute; border-radius: 50%; background: #fff;
-}
+.hero-stars { position: absolute; inset: 0; pointer-events: none; }
+.star { position: absolute; border-radius: 50%; background: #fff; }
 .hero-content {
   position: relative; z-index: 2;
   padding: 80px 48px 72px;
@@ -98,9 +108,7 @@ nav {
   letter-spacing: 0.3em; text-transform: uppercase;
   color: var(--gold);
 }
-.hero-eyebrow-line {
-  width: 48px; height: 1px; background: var(--gold-dim);
-}
+.hero-eyebrow-line { width: 48px; height: 1px; background: var(--gold-dim); }
 .hero-eyebrow-cat {
   font-size: 11px; font-weight: 400;
   letter-spacing: 0.18em; text-transform: uppercase;
@@ -109,24 +117,17 @@ nav {
 .hero-title {
   font-size: clamp(48px, 6vw, 80px);
   font-weight: 800; line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--white);
+  letter-spacing: -0.02em; color: var(--white);
   margin-bottom: 10px;
 }
-.hero-title em {
-  font-style: italic; font-weight: 300;
-  color: var(--gray2);
-}
+.hero-title em { font-style: italic; font-weight: 300; color: var(--gray2); }
 .hero-sub {
   font-size: 15px; font-weight: 300;
   color: var(--gray2); letter-spacing: 0.04em;
   margin-bottom: 48px; line-height: 1.6;
   max-width: 560px;
 }
-.hero-meta {
-  display: flex; gap: 40px; flex-wrap: wrap;
-}
-.hero-meta-item {}
+.hero-meta { display: flex; gap: 40px; flex-wrap: wrap; }
 .hero-meta-label {
   font-size: 9px; font-weight: 600;
   letter-spacing: 0.25em; text-transform: uppercase;
@@ -146,29 +147,6 @@ nav {
   position: relative; padding-bottom: 56.25%; width: 100%;
   background: #0E0E0E; overflow: hidden;
 }
-.video-inner {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 16px;
-  border: 0.5px solid #1E1E1E;
-}
-/* YouTube embed: substitua .video-inner por:
-   <iframe src="https://www.youtube.com/embed/SEU_ID"
-   style="position:absolute;inset:0;width:100%;height:100%"
-   frameborder="0" allowfullscreen></iframe>
-*/
-.video-play-btn {
-  width: 64px; height: 64px; border-radius: 50%;
-  border: 1px solid #333;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.04);
-}
-.video-play-btn svg { width: 22px; height: 22px; fill: #444; margin-left: 4px; }
-.video-placeholder-label {
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: #2A2A2A;
-}
 .video-caption {
   display: flex; justify-content: space-between; align-items: center;
   padding: 14px 0 0;
@@ -180,10 +158,9 @@ nav {
 .video-caption-dur {
   font-size: 11px; font-weight: 400;
   color: var(--gray3); letter-spacing: 0.1em;
-  font-variant-numeric: tabular-nums;
 }
 
-/* ── SECTION LABEL (como no portfólio) ── */
+/* ── SECTION LABEL ── */
 .section-label {
   display: flex; align-items: center; gap: 12px;
   margin-bottom: 40px;
@@ -193,9 +170,7 @@ nav {
   letter-spacing: 0.3em; text-transform: uppercase;
   color: var(--gold);
 }
-.section-label-line {
-  width: 48px; height: 1px; background: var(--gold-dim);
-}
+.section-label-line { width: 48px; height: 1px; background: var(--gold-dim); }
 
 /* ── SECTION ── */
 .section {
@@ -204,19 +179,15 @@ nav {
   max-width: 1400px; margin: 0 auto;
 }
 
-/* ── PROCESSO: STEPS ── */
-.steps {
-  display: flex; flex-direction: column; gap: 0;
-}
+/* ── STEPS ── */
+.steps { display: flex; flex-direction: column; gap: 0; }
 .step {
   display: grid;
   grid-template-columns: 56px 1px 1fr;
   column-gap: 32px;
 }
 .step:last-child .step-line { visibility: hidden; }
-.step-num-col {
-  display: flex; flex-direction: column; align-items: center;
-}
+.step-num-col { display: flex; flex-direction: column; align-items: center; }
 .step-num {
   width: 56px; height: 56px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
@@ -224,12 +195,10 @@ nav {
   font-size: 12px; font-weight: 700;
   letter-spacing: 0.08em;
   border: 0.5px solid #222;
-  background: #111;
-  color: var(--gold);
+  background: #111; color: var(--gold);
 }
 .step-line {
-  width: 1px; flex: 1; min-height: 16px;
-  margin-top: 6px;
+  width: 1px; flex: 1; min-height: 16px; margin-top: 6px;
   background: linear-gradient(to bottom, #222, transparent);
 }
 .step-body { padding-bottom: 64px; padding-top: 12px; }
@@ -257,79 +226,28 @@ nav {
   border-radius: 2px; padding: 4px 10px;
 }
 
-/* ── IMAGE SLOTS ── */
-.img-slot {
-  background: #0E0E0E;
+/* ── STEP IMAGE ── */
+.step-img {
+  width: 100%; max-width: 640px;
   border: 0.5px solid #1A1A1A;
-  overflow: hidden; margin-bottom: 6px;
-}
-.img-ph {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 10px; padding: 24px 12px;
-}
-.img-ph svg { opacity: 0.15; }
-.img-ph-label {
-  font-size: 9px; font-weight: 500;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: #252525; text-align: center; line-height: 1.7;
-}
-.img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.img-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.img-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-
-/* ── STORYBOARD CARD ── */
-.scene-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-  background: #1A1A1A; margin-bottom: 24px;
-}
-.scene-card { background: var(--black); }
-.scene-visual {
-  aspect-ratio: 16/9;
-  display: flex; align-items: center; justify-content: center;
-  background: #0C0C0C; overflow: hidden; position: relative;
-}
-.scene-info { padding: 14px 16px 18px; }
-.scene-time {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.2em; color: var(--gold-dim);
-  margin-bottom: 5px;
-}
-.scene-name {
-  font-size: 13px; font-weight: 600;
-  color: var(--white); margin-bottom: 6px; line-height: 1.3;
-}
-.scene-copy {
-  font-size: 12px; font-weight: 300;
-  font-style: italic; color: var(--gray3);
-  line-height: 1.5;
+  display: block; margin-top: 4px;
 }
 
-/* ── PIVOT BLOCK ── */
-.pivot-block {
+/* ── SCRIPT BLOCK ── */
+.script-block {
   border: 0.5px solid #1E1A0A;
   background: #0E0C06;
-  padding: 24px 28px; margin-top: 16px;
+  padding: 24px 28px; margin: 16px 0;
+  max-width: 640px;
 }
-.pivot-row {
-  display: flex; align-items: baseline; gap: 14px;
-  padding: 14px 0;
+.script-text {
+  font-size: 15px; font-weight: 400;
+  color: var(--gold); line-height: 1.9;
+  font-style: italic; letter-spacing: 0.01em;
 }
-.pivot-row:first-child {
-  border-bottom: 0.5px solid #1E1A0A;
-}
-.pivot-badge {
-  font-size: 9px; font-weight: 700;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gray3); flex-shrink: 0; min-width: 44px;
-}
-.pivot-text-before {
-  font-size: 14px; font-weight: 300;
-  font-style: italic; color: var(--gray3); line-height: 1.5;
-}
-.pivot-text-after {
-  font-size: 15px; font-weight: 600;
-  color: var(--gold); line-height: 1.5;
+.script-text span {
+  color: var(--gray3); font-size: 12px;
+  font-style: normal; font-weight: 300;
 }
 
 /* ── FOOTER ── */
@@ -357,9 +275,15 @@ footer {
   color: #222; letter-spacing: 0.06em;
 }
 
-/* ── DIVIDER ── */
-.divider {
-  width: 100%; height: 0.5px; background: #161616;
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .nav-brand { display: none; }
+  .hero-content { padding: 60px 20px 48px; }
+  .video-section { padding: 0 20px 60px; }
+  .section { padding: 60px 20px; }
+  .step { grid-template-columns: 40px 1px 1fr; column-gap: 20px; }
+  .step-num { width: 40px; height: 40px; font-size: 11px; }
+  footer { padding: 32px 20px; }
 }
 </style>
 </head>
@@ -367,9 +291,16 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <a href="https://alexandrenogueira81.github.io/portfolio-alexandre/" class="nav-back">Portfólio</a>
+  <a href="https://alexandrenogueira81.github.io/portfolio-alexandre/" class="nav-back" data-i18n="nav-back">Portfólio</a>
   <span class="nav-brand">Alexandre Nogueira</span>
-  <span class="nav-tag">Publicidade</span>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnPT" onclick="setLang('pt')">PT</button>
+      <div class="lang-sep"></div>
+      <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+    </div>
+    <span class="nav-tag" data-i18n="nav-tag">Publicidade</span>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -387,28 +318,28 @@ footer {
   </div>
   <div class="hero-content">
     <div class="hero-eyebrow">
-      <span class="hero-eyebrow-label">Publicidade</span>
+      <span class="hero-eyebrow-label" data-i18n="hero-label">Publicidade</span>
       <div class="hero-eyebrow-line"></div>
-      <span class="hero-eyebrow-cat">Estudo de caso · 2025</span>
+      <span class="hero-eyebrow-cat" data-i18n="hero-cat">Estudo de caso · 2025</span>
     </div>
-    <h1 class="hero-title">Nexus Pen<br><em>Da ideia ao vídeo final</em></h1>
-    <p class="hero-sub">Um experimento criativo usando IA como parceira de processo — do naming ao roteiro, da geração de imagens à edição final em 15 segundos.</p>
+    <h1 class="hero-title">Nexus Pen<br><em data-i18n="hero-sub-title">Da ideia ao vídeo final</em></h1>
+    <p class="hero-sub" data-i18n="hero-sub">Um experimento criativo usando IA como parceira de processo — do naming ao roteiro, da geração de imagens à edição final em 15 segundos.</p>
     <div class="hero-meta">
       <div class="hero-meta-item">
-        <div class="hero-meta-label">Categoria</div>
-        <div class="hero-meta-value">Publicidade · Conceitual</div>
+        <div class="hero-meta-label" data-i18n="meta-cat-label">Categoria</div>
+        <div class="hero-meta-value" data-i18n="meta-cat-value">Publicidade · Conceitual</div>
       </div>
       <div class="hero-meta-item">
-        <div class="hero-meta-label">Ferramentas</div>
-        <div class="hero-meta-value">Claude · Magnific · Higgsfield · DaVinci</div>
+        <div class="hero-meta-label" data-i18n="meta-tools-label">Ferramentas</div>
+        <div class="hero-meta-value">Claude · Magnific · Higgsfield · Suno · ElevenLabs · Premiere</div>
       </div>
       <div class="hero-meta-item">
-        <div class="hero-meta-label">Duração</div>
-        <div class="hero-meta-value">15 segundos</div>
+        <div class="hero-meta-label" data-i18n="meta-dur-label">Duração</div>
+        <div class="hero-meta-value" data-i18n="meta-dur-value">15 segundos</div>
       </div>
       <div class="hero-meta-item">
-        <div class="hero-meta-label">Formato</div>
-        <div class="hero-meta-value">Filme de campanha</div>
+        <div class="hero-meta-label" data-i18n="meta-format-label">Formato</div>
+        <div class="hero-meta-value" data-i18n="meta-format-value">Filme de campanha</div>
       </div>
     </div>
   </div>
@@ -424,8 +355,8 @@ footer {
         allowfullscreen></iframe>
     </div>
     <div class="video-caption">
-      <span class="video-caption-title">Nexus Pen — filme de 15 segundos</span>
-      <span class="video-caption-dur">16:9 · 0:15 · campanha</span>
+      <span class="video-caption-title" data-i18n="video-title">Nexus Pen — filme de 15 segundos</span>
+      <span class="video-caption-dur">16:9 · 0:15</span>
     </div>
   </div>
 </div>
@@ -434,7 +365,7 @@ footer {
 <div style="border-top:0.5px solid #161616">
 <div class="section">
   <div class="section-label">
-    <span class="section-label-text">Processo</span>
+    <span class="section-label-text" data-i18n="section-process">Processo</span>
     <div class="section-label-line"></div>
   </div>
 
@@ -448,19 +379,13 @@ footer {
       </div>
       <div></div>
       <div class="step-body">
-        <div class="step-eyebrow">A ideia</div>
-        <h2 class="step-title">Notícia vira <em>conceito de campanha</em></h2>
-        <p class="step-body-text">Uma reportagem da BBC sobre como a escrita à mão mantém redes neurais ativas acende a faísca. A pergunta criativa surge: se a ciência confirma o valor da escrita, por que não criar uma campanha para uma caneta?</p>
+        <div class="step-eyebrow" data-i18n="s1-eyebrow">A ideia</div>
+        <h2 class="step-title" data-i18n-html="s1-title">Notícia vira <em>conceito de campanha</em></h2>
+        <p class="step-body-text" data-i18n="s1-text">Ao ler uma reportagem da BBC sobre as redes neurais que são ativadas quando escrevemos, pensei em tornar isso o conceito da campanha de uma caneta fictícia, sendo que eu mesmo sou um escritor que usa cadernos e caneta ainda para minhas escritas.</p>
         <div class="step-tags">
-          <span class="step-tag">BBC — neurônios + escrita</span>
-          <span class="step-tag">Insight editorial</span>
-          <span class="step-tag">Briefing intuitivo</span>
-        </div>
-        <div class="img-slot">
-          <div class="img-ph" style="height:96px">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            <div class="img-ph-label">Screenshot do artigo da BBC<br>ou referência do insight inicial</div>
-          </div>
+          <span class="step-tag" data-i18n="s1-tag1">BBC — neurônios + escrita</span>
+          <span class="step-tag" data-i18n="s1-tag2">Insight editorial</span>
+          <span class="step-tag" data-i18n="s1-tag3">Briefing intuitivo</span>
         </div>
       </div>
     </div>
@@ -473,28 +398,13 @@ footer {
       </div>
       <div></div>
       <div class="step-body">
-        <div class="step-eyebrow">Construção dos prompts</div>
-        <h2 class="step-title">Claude + Magnific <em>+ Higgsfield</em></h2>
-        <p class="step-body-text">Claude nomeia o produto — nasce a NEXUS PEN — e constrói a pipeline criativa completa. Os primeiros prompts testam diferentes modelos e estilos antes de chegar ao tom definitivo.</p>
+        <div class="step-eyebrow" data-i18n="s2-eyebrow">Usando o Claude</div>
+        <h2 class="step-title" data-i18n-html="s2-title">Claude <em>como parceiro criativo</em></h2>
+        <p class="step-body-text" data-i18n="s2-text">Pedi para o Claude me ajudar na campanha e logo ele formatou para mim um roteiro e traçou um caminho para criação das imagens. Dei a ele as informações sobre quais Hubs de IA iria usar e ele começou a escrever os prompts direcionados.</p>
         <div class="step-tags">
-          <span class="step-tag">Naming: Nexus Pen</span>
-          <span class="step-tag">Flux Kontext Pro</span>
-          <span class="step-tag">Nano Banana 2</span>
-          <span class="step-tag">Prompt engineering</span>
-        </div>
-        <div class="img-grid-2">
-          <div class="img-slot">
-            <div class="img-ph" style="height:88px">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <div class="img-ph-label">Conversa com Claude<br>naming e prompts</div>
-            </div>
-          </div>
-          <div class="img-slot">
-            <div class="img-ph" style="height:88px">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-              <div class="img-ph-label">Interface Magnific<br>com os prompts</div>
-            </div>
-          </div>
+          <span class="step-tag">Claude</span>
+          <span class="step-tag" data-i18n="s2-tag1">Roteiro</span>
+          <span class="step-tag" data-i18n="s2-tag2">Prompt engineering</span>
         </div>
       </div>
     </div>
@@ -507,116 +417,16 @@ footer {
       </div>
       <div></div>
       <div class="step-body">
-        <div class="step-eyebrow">Roteiro e imagens</div>
-        <h2 class="step-title">Construção <em>visual do roteiro</em></h2>
-        <p class="step-body-text">Com as primeiras imagens geradas, o roteiro ganha forma visual. 6 cenas, 15 segundos. Da pedra ao cosmos — a mesma ferramenta atravessando toda a história humana.</p>
+        <div class="step-eyebrow" data-i18n="s3-eyebrow">Construção visual do roteiro</div>
+        <h2 class="step-title" data-i18n-html="s3-title">Primeiras imagens <em>no Magnific</em></h2>
+        <p class="step-body-text" data-i18n="s3-text">Quando comecei a gerar as primeiras imagens no Magnific, vi que os modelos que o Claude havia me indicado não estavam funcionando da maneira que eu precisava (Kontext Pro e Mystic). Substitui o Mystic pelo Nana Banana 2 e dei continuidade. A primeira gerada foi da caneta para que pudesse ter uma referência visual de todo projeto até chegar ao final. As imagens iniciais foram geradas a partir apenas de prompt e uma referência de ângulo de câmera.</p>
         <div class="step-tags">
-          <span class="step-tag">6 cenas · 15 segundos</span>
-          <span class="step-tag">Imagens por cena</span>
-          <span class="step-tag">Tagline definida</span>
+          <span class="step-tag">Magnific</span>
+          <span class="step-tag">Flux Kontext Pro</span>
+          <span class="step-tag">Nana Banana 2</span>
+          <span class="step-tag" data-i18n="s3-tag1">Referência de câmera</span>
         </div>
-        <!-- Storyboard em grid -->
-        <div class="scene-grid">
-          <div class="scene-card">
-            <div class="scene-visual" style="background:#100A04">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
-                <ellipse cx="24" cy="30" rx="18" ry="8" fill="#8B4A20"/>
-                <polygon points="24,8 20,28 28,28" fill="#E87030"/>
-                <ellipse cx="24" cy="8" rx="5" ry="7" fill="#C45A10" opacity="0.5"/>
-              </svg>
-            </div>
-            <div class="scene-info">
-              <div class="scene-time">00 — 02s</div>
-              <div class="scene-name">Mão na pedra</div>
-              <div class="scene-copy">— silêncio —</div>
-            </div>
-          </div>
-          <div class="scene-card">
-            <div class="scene-visual" style="background:#0C0904">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
-                <rect x="6" y="10" width="28" height="22" rx="1" fill="#C8A060" opacity="0.4"/>
-                <line x1="10" y1="17" x2="28" y2="17" stroke="#C8A060" stroke-width="1"/>
-                <line x1="10" y1="23" x2="25" y2="23" stroke="#C8A060" stroke-width="1" opacity="0.6"/>
-                <path d="M38 6 L42 38" stroke="#D4A060" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div class="scene-info">
-              <div class="scene-time">02 — 04s</div>
-              <div class="scene-name">Pena e pergaminho</div>
-              <div class="scene-copy">"Tudo ao redor mudou."</div>
-            </div>
-          </div>
-          <div class="scene-card">
-            <div class="scene-visual" style="background:#060814">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
-                <circle cx="24" cy="24" r="6" fill="#4A5AB0" opacity="0.5"/>
-                <circle cx="24" cy="24" r="11" stroke="#5070D0" stroke-width="0.5" fill="none"/>
-                <circle cx="8" cy="36" r="3" fill="#7060C0"/>
-                <circle cx="40" cy="36" r="3" fill="#5080D0"/>
-                <line x1="24" y1="18" x2="8" y2="33" stroke="#6070C0" stroke-width="0.5"/>
-                <line x1="24" y1="18" x2="40" y2="33" stroke="#7060C0" stroke-width="0.5"/>
-              </svg>
-            </div>
-            <div class="scene-info">
-              <div class="scene-time">04 — 07s</div>
-              <div class="scene-name">Neurônios ativando</div>
-              <div class="scene-copy">"Menos isso."</div>
-            </div>
-          </div>
-          <div class="scene-card">
-            <div class="scene-visual" style="background:#060E08">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
-                <rect x="6" y="12" width="28" height="22" rx="1" fill="#1A2A1A"/>
-                <line x1="10" y1="20" x2="28" y2="20" stroke="#4A8050" stroke-width="1"/>
-                <line x1="10" y1="26" x2="24" y2="26" stroke="#4A8050" stroke-width="1" opacity="0.6"/>
-                <path d="M36 4 L40 42" stroke="#D0C8A0" stroke-width="2.5" stroke-linecap="round"/>
-                <ellipse cx="38" cy="3" rx="2.5" ry="4" fill="#A09078"/>
-              </svg>
-            </div>
-            <div class="scene-info">
-              <div class="scene-time">07 — 11s</div>
-              <div class="scene-name">Nexus Pen</div>
-              <div class="scene-copy">"Escrever é a base de tudo..."</div>
-            </div>
-          </div>
-          <div class="scene-card">
-            <div class="scene-visual" style="background:#03040C">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
-                <ellipse cx="24" cy="32" rx="22" ry="9" fill="#0A1428"/>
-                <circle cx="6" cy="12" r="0.8" fill="#fff"/>
-                <circle cx="18" cy="8" r="0.6" fill="#fff"/>
-                <circle cx="34" cy="10" r="0.7" fill="#fff"/>
-                <circle cx="42" cy="18" r="0.5" fill="#fff"/>
-                <path d="M23 5 L25 32" stroke="#C8C0A0" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div class="scene-info">
-              <div class="scene-time">11 — 13s</div>
-              <div class="scene-name">Caneta no cosmos</div>
-              <div class="scene-copy">— silêncio —</div>
-            </div>
-          </div>
-          <div class="scene-card">
-            <div class="scene-visual" style="background:#050508;align-items:center;justify-content:center;flex-direction:column;gap:8px;display:flex">
-              <div style="font-size:14px;font-weight:700;letter-spacing:0.4em;text-transform:uppercase;color:#2A2A40;opacity:0.4">NEXUS PEN</div>
-              <div style="width:28px;height:0.5px;background:#1A1A30"></div>
-            </div>
-            <div class="scene-info">
-              <div class="scene-time">13 — 15s</div>
-              <div class="scene-name">Tela final</div>
-              <div class="scene-copy">"...40 mil anos."</div>
-            </div>
-          </div>
-        </div>
-        <!-- Espaços de imagens das cenas -->
-        <div class="img-grid-6">
-          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 1</div></div></div>
-          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 2</div></div></div>
-          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 3</div></div></div>
-          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 4</div></div></div>
-          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 5</div></div></div>
-          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 6</div></div></div>
-        </div>
+        <img src="assets/images/nexus/magnific.png" alt="Magnific — geração de imagens" class="step-img">
       </div>
     </div>
 
@@ -628,27 +438,16 @@ footer {
       </div>
       <div></div>
       <div class="step-body">
-        <div class="step-eyebrow">Geração de vídeos</div>
-        <h2 class="step-title">Imagens <em>ganham movimento</em></h2>
-        <p class="step-body-text">Cada imagem aprovada entra no Higgsfield para animação. Motion prompts calibrados cena a cena — câmera lenta nas ancestrais, parallax estelar no cosmos.</p>
+        <div class="step-eyebrow" data-i18n="s4-eyebrow">O roteiro visual pronto e a mudança</div>
+        <h2 class="step-title" data-i18n-html="s4-title">Pivô criativo <em>e nova narrativa</em></h2>
+        <p class="step-body-text" data-i18n="s4-text">Ao iniciar a montagem do quadro de roteiro visual, decidi mudar o conceito da campanha, não usando mais a história das redes neurais e simplificando para uma ferramenta que é usada desde o início da civilização e estará presente entre nós no futuro.</p>
         <div class="step-tags">
-          <span class="step-tag">Higgsfield AI</span>
-          <span class="step-tag">6 clipes gerados</span>
-          <span class="step-tag">Motion por cena</span>
+          <span class="step-tag" data-i18n="s4-tag1">Pivô criativo</span>
+          <span class="step-tag" data-i18n="s4-tag2">Nova narrativa</span>
+          <span class="step-tag" data-i18n="s4-tag3">Roteiro de locução</span>
         </div>
-        <div class="img-grid-2">
-          <div class="img-slot">
-            <div class="img-ph" style="height:96px">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-              <div class="img-ph-label">Interface Higgsfield<br>com os clipes</div>
-            </div>
-          </div>
-          <div class="img-slot">
-            <div class="img-ph" style="height:96px">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><line x1="2" y1="6" x2="22" y2="6"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="18" x2="22" y2="18"/><circle cx="6" cy="6" r="2" fill="#fff" opacity="0.3"/><circle cx="14" cy="12" r="2" fill="#fff" opacity="0.3"/><circle cx="10" cy="18" r="2" fill="#fff" opacity="0.3"/></svg>
-              <div class="img-ph-label">Timeline dos<br>clipes gerados</div>
-            </div>
-          </div>
+        <div class="script-block">
+          <p class="script-text" data-i18n-html="script-text">"Tudo ao redor mudou. <span>[pausa 0.8s]</span> Menos isso. <span>[pausa 1.2s]</span> Escrever é a base de tudo que o ser humano construiu. <span>[silêncio 2s]</span> Nexus Pen. <span>[pausa 0.5s]</span> O próximo capítulo de uma história de 40 mil anos."</p>
         </div>
       </div>
     </div>
@@ -661,30 +460,16 @@ footer {
       </div>
       <div></div>
       <div class="step-body">
-        <div class="step-eyebrow">Mudança de rota</div>
-        <h2 class="step-title">O roteiro <em>encontra sua verdade</em></h2>
-        <p class="step-body-text">As imagens geradas revelam algo maior. O foco em neurônios cede para uma narrativa atemporal — a caneta como ferramenta que sobreviveu a tudo e está pronta para o futuro.</p>
+        <div class="step-eyebrow" data-i18n="s5-eyebrow">Geração dos vídeos</div>
+        <h2 class="step-title" data-i18n-html="s5-title">Higgsfield <em>+ Suno + ElevenLabs</em></h2>
+        <p class="step-body-text" data-i18n="s5-text">Indo para o Higgsfield, utilizei o modelo Kling para gerar os vídeos, com as imagens de referência. Algumas se mostraram muito plásticas e artificiais, me deixando a escolha de apenas fazer em prompts puros. Após isso, usei o Suno para trilha sonora e o ElevenLabs para locução.</p>
         <div class="step-tags">
-          <span class="step-tag">Pivô criativo</span>
-          <span class="step-tag">Conceito ampliado</span>
-          <span class="step-tag">Nova tagline</span>
+          <span class="step-tag">Higgsfield · Kling</span>
+          <span class="step-tag">Suno</span>
+          <span class="step-tag">ElevenLabs</span>
+          <span class="step-tag" data-i18n="s5-tag1">Prompts puros</span>
         </div>
-        <div class="pivot-block">
-          <div class="pivot-row">
-            <span class="pivot-badge">Antes</span>
-            <span class="pivot-text-before">"Escrever ativa seus neurônios"</span>
-          </div>
-          <div class="pivot-row">
-            <span class="pivot-badge" style="color:var(--gold)">Depois</span>
-            <span class="pivot-text-after">"O próximo capítulo de uma história de 40 mil anos."</span>
-          </div>
-        </div>
-        <div class="img-slot" style="margin-top:8px">
-          <div class="img-ph" style="height:88px">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.43"/></svg>
-            <div class="img-ph-label">Comparativo dos roteiros<br>ou anotações do pivô criativo</div>
-          </div>
-        </div>
+        <img src="assets/images/nexus/higgsfied.png" alt="Higgsfield — geração de vídeos" class="step-img">
       </div>
     </div>
 
@@ -695,29 +480,16 @@ footer {
       </div>
       <div></div>
       <div class="step-body">
-        <div class="step-eyebrow">Edição e finalização</div>
-        <h2 class="step-title">DaVinci Resolve <em>— corte final</em></h2>
-        <p class="step-body-text">Os 6 clipes entram no DaVinci para montagem, color grading e finalização. O silêncio das cenas 1 e 5 é preservado. Locução posicionada ao frame. 15 segundos entregues.</p>
+        <div class="step-eyebrow" data-i18n="s6-eyebrow">A finalização</div>
+        <h2 class="step-title" data-i18n-html="s6-title">Premiere <em>— corte final</em></h2>
+        <p class="step-body-text" data-i18n="s6-text">Após isso, usei minha ferramenta manual, finalmente. O Premiere me ajudou a juntar tudo e ajustar volume, transições e finalmente exportar o produto final.</p>
         <div class="step-tags">
-          <span class="step-tag">DaVinci Resolve</span>
-          <span class="step-tag">Color grading</span>
-          <span class="step-tag">Sound design</span>
-          <span class="step-tag">Entrega final</span>
+          <span class="step-tag">Adobe Premiere</span>
+          <span class="step-tag" data-i18n="s6-tag1">Montagem</span>
+          <span class="step-tag" data-i18n="s6-tag2">Mix de áudio</span>
+          <span class="step-tag" data-i18n="s6-tag3">Exportação final</span>
         </div>
-        <div class="img-grid-2">
-          <div class="img-slot">
-            <div class="img-ph" style="height:96px">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"/><line x1="3" y1="22" x2="21" y2="22"/></svg>
-              <div class="img-ph-label">Timeline DaVinci<br>com os 6 clipes</div>
-            </div>
-          </div>
-          <div class="img-slot">
-            <div class="img-ph" style="height:96px">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 1 0 4.93 19.07"/><path d="M16.95 7.05A7 7 0 1 0 7.05 16.95"/></svg>
-              <div class="img-ph-label">Color grading<br>do corte final</div>
-            </div>
-          </div>
-        </div>
+        <img src="assets/images/nexus/premiere.png" alt="Adobe Premiere — finalização" class="step-img">
       </div>
     </div>
 
@@ -733,12 +505,137 @@ footer {
     <span class="footer-tool">Claude</span>
     <span class="footer-tool">Magnific</span>
     <span class="footer-tool">Higgsfield</span>
-    <span class="footer-tool">DaVinci</span>
+    <span class="footer-tool">Suno</span>
+    <span class="footer-tool">ElevenLabs</span>
+    <span class="footer-tool">Premiere</span>
     <span class="footer-tool">2025</span>
   </div>
   <span class="footer-copy">Alexandre Nogueira · São Paulo</span>
 </footer>
 </div>
 
+<script>
+const i18n = {
+  pt: {
+    'nav-back': 'Portfólio',
+    'nav-tag': 'Publicidade',
+    'hero-label': 'Publicidade',
+    'hero-cat': 'Estudo de caso · 2025',
+    'hero-sub-title': 'Da ideia ao vídeo final',
+    'hero-sub': 'Um experimento criativo usando IA como parceira de processo — do naming ao roteiro, da geração de imagens à edição final em 15 segundos.',
+    'meta-cat-label': 'Categoria',
+    'meta-cat-value': 'Publicidade · Conceitual',
+    'meta-tools-label': 'Ferramentas',
+    'meta-dur-label': 'Duração',
+    'meta-dur-value': '15 segundos',
+    'meta-format-label': 'Formato',
+    'meta-format-value': 'Filme de campanha',
+    'video-title': 'Nexus Pen — filme de 15 segundos',
+    'section-process': 'Processo',
+    's1-eyebrow': 'A ideia',
+    's1-title': 'Notícia vira <em>conceito de campanha</em>',
+    's1-text': 'Ao ler uma reportagem da BBC sobre as redes neurais que são ativadas quando escrevemos, pensei em tornar isso o conceito da campanha de uma caneta fictícia, sendo que eu mesmo sou um escritor que usa cadernos e caneta ainda para minhas escritas.',
+    's1-tag1': 'BBC — neurônios + escrita',
+    's1-tag2': 'Insight editorial',
+    's1-tag3': 'Briefing intuitivo',
+    's2-eyebrow': 'Usando o Claude',
+    's2-title': 'Claude <em>como parceiro criativo</em>',
+    's2-text': 'Pedi para o Claude me ajudar na campanha e logo ele formatou para mim um roteiro e traçou um caminho para criação das imagens. Dei a ele as informações sobre quais Hubs de IA iria usar e ele começou a escrever os prompts direcionados.',
+    's2-tag1': 'Roteiro',
+    's2-tag2': 'Prompt engineering',
+    's3-eyebrow': 'Construção visual do roteiro',
+    's3-title': 'Primeiras imagens <em>no Magnific</em>',
+    's3-text': 'Quando comecei a gerar as primeiras imagens no Magnific, vi que os modelos que o Claude havia me indicado não estavam funcionando da maneira que eu precisava (Kontext Pro e Mystic). Substitui o Mystic pelo Nana Banana 2 e dei continuidade. A primeira gerada foi da caneta para que pudesse ter uma referência visual de todo projeto até chegar ao final. As imagens iniciais foram geradas a partir apenas de prompt e uma referência de ângulo de câmera.',
+    's3-tag1': 'Referência de câmera',
+    's4-eyebrow': 'O roteiro visual pronto e a mudança',
+    's4-title': 'Pivô criativo <em>e nova narrativa</em>',
+    's4-text': 'Ao iniciar a montagem do quadro de roteiro visual, decidi mudar o conceito da campanha, não usando mais a história das redes neurais e simplificando para uma ferramenta que é usada desde o início da civilização e estará presente entre nós no futuro.',
+    's4-tag1': 'Pivô criativo',
+    's4-tag2': 'Nova narrativa',
+    's4-tag3': 'Roteiro de locução',
+    'script-text': '"Tudo ao redor mudou. <span>[pausa 0.8s]</span> Menos isso. <span>[pausa 1.2s]</span> Escrever é a base de tudo que o ser humano construiu. <span>[silêncio 2s]</span> Nexus Pen. <span>[pausa 0.5s]</span> O próximo capítulo de uma história de 40 mil anos."',
+    's5-eyebrow': 'Geração dos vídeos',
+    's5-title': 'Higgsfield <em>+ Suno + ElevenLabs</em>',
+    's5-text': 'Indo para o Higgsfield, utilizei o modelo Kling para gerar os vídeos, com as imagens de referência. Algumas se mostraram muito plásticas e artificiais, me deixando a escolha de apenas fazer em prompts puros. Após isso, usei o Suno para trilha sonora e o ElevenLabs para locução.',
+    's5-tag1': 'Prompts puros',
+    's6-eyebrow': 'A finalização',
+    's6-title': 'Premiere <em>— corte final</em>',
+    's6-text': 'Após isso, usei minha ferramenta manual, finalmente. O Premiere me ajudou a juntar tudo e ajustar volume, transições e finalmente exportar o produto final.',
+    's6-tag1': 'Montagem',
+    's6-tag2': 'Mix de áudio',
+    's6-tag3': 'Exportação final',
+  },
+  en: {
+    'nav-back': 'Portfolio',
+    'nav-tag': 'Advertising',
+    'hero-label': 'Advertising',
+    'hero-cat': 'Case Study · 2025',
+    'hero-sub-title': 'From idea to final video',
+    'hero-sub': 'A creative experiment using AI as a process partner — from naming to script, from image generation to the final 15-second edit.',
+    'meta-cat-label': 'Category',
+    'meta-cat-value': 'Advertising · Conceptual',
+    'meta-tools-label': 'Tools',
+    'meta-dur-label': 'Duration',
+    'meta-dur-value': '15 seconds',
+    'meta-format-label': 'Format',
+    'meta-format-value': 'Campaign film',
+    'video-title': 'Nexus Pen — 15-second film',
+    'section-process': 'Process',
+    's1-eyebrow': 'The idea',
+    's1-title': 'News article becomes <em>campaign concept</em>',
+    's1-text': 'While reading a BBC article about the neural networks activated when we write by hand, I thought about turning that into the campaign concept for a fictional pen — especially since I\'m a writer who still uses notebooks and pens for my own writing.',
+    's1-tag1': 'BBC — neurons + writing',
+    's1-tag2': 'Editorial insight',
+    's1-tag3': 'Intuitive briefing',
+    's2-eyebrow': 'Using Claude',
+    's2-title': 'Claude <em>as creative partner</em>',
+    's2-text': 'I asked Claude to help me with the campaign and it quickly structured a script and mapped out a path for image creation. I gave it information about which AI platforms I would use and it started writing targeted prompts.',
+    's2-tag1': 'Script',
+    's2-tag2': 'Prompt engineering',
+    's3-eyebrow': 'Visual script construction',
+    's3-title': 'First images <em>in Magnific</em>',
+    's3-text': 'When I started generating the first images in Magnific, I noticed the models Claude had suggested weren\'t working the way I needed (Kontext Pro and Mystic). I replaced Mystic with Nana Banana 2 and continued. The first image generated was of the pen itself, so I could have a visual reference for the entire project. The initial images were generated from prompts alone and a camera angle reference.',
+    's3-tag1': 'Camera reference',
+    's4-eyebrow': 'Visual script ready and the pivot',
+    's4-title': 'Creative pivot <em>and new narrative</em>',
+    's4-text': 'When I started assembling the visual storyboard, I decided to change the campaign concept — dropping the neural network story and simplifying it to a tool that has been used since the dawn of civilization and will remain with us in the future.',
+    's4-tag1': 'Creative pivot',
+    's4-tag2': 'New narrative',
+    's4-tag3': 'Voiceover script',
+    'script-text': '"Everything around changed. <span>[pause 0.8s]</span> Except this. <span>[pause 1.2s]</span> Writing is the foundation of everything humanity has built. <span>[silence 2s]</span> Nexus Pen. <span>[pause 0.5s]</span> The next chapter of a 40,000-year story."',
+    's5-eyebrow': 'Video generation',
+    's5-title': 'Higgsfield <em>+ Suno + ElevenLabs</em>',
+    's5-text': 'Moving to Higgsfield, I used the Kling model to generate videos with the reference images. Some turned out too plastic and artificial, leading me to generate others from pure prompts. After that, I used Suno for the soundtrack and ElevenLabs for the voiceover.',
+    's5-tag1': 'Pure prompts',
+    's6-eyebrow': 'The final edit',
+    's6-title': 'Premiere <em>— final cut</em>',
+    's6-text': 'After that, I finally got to use my manual tool. Premiere helped me put everything together, adjust volume, transitions, and export the final product.',
+    's6-tag1': 'Editing',
+    's6-tag2': 'Audio mix',
+    's6-tag3': 'Final export',
+  }
+};
+
+let currentLang = localStorage.getItem('lang') || 'pt';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  const dict = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+}
+
+setLang(currentLang);
+</script>
 </body>
 </html>
