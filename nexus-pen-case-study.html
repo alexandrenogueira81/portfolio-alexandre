@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Pen — Estudo de Caso</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:   #0A0A0A;
+  --surface: #111111;
+  --surface2:#181818;
+  --border:  #222222;
+  --gold:    #C9A84C;
+  --gold-dim:#7A6228;
+  --white:   #FFFFFF;
+  --gray1:   #E8E8E8;
+  --gray2:   #888888;
+  --gray3:   #444444;
+}
+
+html { font-size: 16px; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 0.5px solid #1A1A1A;
+}
+.nav-back {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gray2); text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--white); }
+.nav-back::before { content: '←'; font-size: 13px; }
+.nav-brand {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gray3);
+}
+.nav-tag {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); border: 0.5px solid var(--gold-dim);
+  border-radius: 2px; padding: 3px 10px;
+}
+
+/* ── HERO ── */
+.hero {
+  padding-top: 80px;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    #0A0A0A 0%,
+    #0C0C0E 30%,
+    #0E0E12 60%,
+    #0A0A0A 100%
+  );
+}
+.hero-stars {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.star {
+  position: absolute; border-radius: 50%; background: #fff;
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 80px 48px 72px;
+  max-width: 900px;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 28px;
+}
+.hero-eyebrow-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold);
+}
+.hero-eyebrow-line {
+  width: 48px; height: 1px; background: var(--gold-dim);
+}
+.hero-eyebrow-cat {
+  font-size: 11px; font-weight: 400;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gray2);
+}
+.hero-title {
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 800; line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.hero-title em {
+  font-style: italic; font-weight: 300;
+  color: var(--gray2);
+}
+.hero-sub {
+  font-size: 15px; font-weight: 300;
+  color: var(--gray2); letter-spacing: 0.04em;
+  margin-bottom: 48px; line-height: 1.6;
+  max-width: 560px;
+}
+.hero-meta {
+  display: flex; gap: 40px; flex-wrap: wrap;
+}
+.hero-meta-item {}
+.hero-meta-label {
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 5px;
+}
+.hero-meta-value {
+  font-size: 13px; font-weight: 400;
+  color: var(--gray1); letter-spacing: 0.02em;
+}
+
+/* ── VIDEO ── */
+.video-section {
+  padding: 0 48px 80px;
+  max-width: 1400px; margin: 0 auto;
+}
+.video-wrap {
+  position: relative; padding-bottom: 56.25%; width: 100%;
+  background: #0E0E0E; overflow: hidden;
+}
+.video-inner {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+  border: 0.5px solid #1E1E1E;
+}
+/* YouTube embed: substitua .video-inner por:
+   <iframe src="https://www.youtube.com/embed/SEU_ID"
+   style="position:absolute;inset:0;width:100%;height:100%"
+   frameborder="0" allowfullscreen></iframe>
+*/
+.video-play-btn {
+  width: 64px; height: 64px; border-radius: 50%;
+  border: 1px solid #333;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.04);
+}
+.video-play-btn svg { width: 22px; height: 22px; fill: #444; margin-left: 4px; }
+.video-placeholder-label {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: #2A2A2A;
+}
+.video-caption {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 0 0;
+}
+.video-caption-title {
+  font-size: 12px; font-weight: 500;
+  color: var(--gray2); letter-spacing: 0.06em;
+}
+.video-caption-dur {
+  font-size: 11px; font-weight: 400;
+  color: var(--gray3); letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── SECTION LABEL (como no portfólio) ── */
+.section-label {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 40px;
+}
+.section-label-text {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold);
+}
+.section-label-line {
+  width: 48px; height: 1px; background: var(--gold-dim);
+}
+
+/* ── SECTION ── */
+.section {
+  padding: 80px 48px;
+  border-top: 0.5px solid #161616;
+  max-width: 1400px; margin: 0 auto;
+}
+
+/* ── PROCESSO: STEPS ── */
+.steps {
+  display: flex; flex-direction: column; gap: 0;
+}
+.step {
+  display: grid;
+  grid-template-columns: 56px 1px 1fr;
+  column-gap: 32px;
+}
+.step:last-child .step-line { visibility: hidden; }
+.step-num-col {
+  display: flex; flex-direction: column; align-items: center;
+}
+.step-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.08em;
+  border: 0.5px solid #222;
+  background: #111;
+  color: var(--gold);
+}
+.step-line {
+  width: 1px; flex: 1; min-height: 16px;
+  margin-top: 6px;
+  background: linear-gradient(to bottom, #222, transparent);
+}
+.step-body { padding-bottom: 64px; padding-top: 12px; }
+.step-eyebrow {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 8px;
+}
+.step-title {
+  font-size: 28px; font-weight: 800;
+  line-height: 1.05; letter-spacing: -0.01em;
+  color: var(--white); margin-bottom: 12px;
+}
+.step-title em { font-weight: 300; font-style: italic; color: var(--gray2); }
+.step-body-text {
+  font-size: 14px; font-weight: 300;
+  color: var(--gray2); line-height: 1.8;
+  margin-bottom: 20px; max-width: 640px;
+}
+.step-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+.step-tag {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gray3); border: 0.5px solid #222;
+  border-radius: 2px; padding: 4px 10px;
+}
+
+/* ── IMAGE SLOTS ── */
+.img-slot {
+  background: #0E0E0E;
+  border: 0.5px solid #1A1A1A;
+  overflow: hidden; margin-bottom: 6px;
+}
+.img-ph {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 10px; padding: 24px 12px;
+}
+.img-ph svg { opacity: 0.15; }
+.img-ph-label {
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: #252525; text-align: center; line-height: 1.7;
+}
+.img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.img-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.img-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+
+/* ── STORYBOARD CARD ── */
+.scene-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: #1A1A1A; margin-bottom: 24px;
+}
+.scene-card { background: var(--black); }
+.scene-visual {
+  aspect-ratio: 16/9;
+  display: flex; align-items: center; justify-content: center;
+  background: #0C0C0C; overflow: hidden; position: relative;
+}
+.scene-info { padding: 14px 16px 18px; }
+.scene-time {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.2em; color: var(--gold-dim);
+  margin-bottom: 5px;
+}
+.scene-name {
+  font-size: 13px; font-weight: 600;
+  color: var(--white); margin-bottom: 6px; line-height: 1.3;
+}
+.scene-copy {
+  font-size: 12px; font-weight: 300;
+  font-style: italic; color: var(--gray3);
+  line-height: 1.5;
+}
+
+/* ── PIVOT BLOCK ── */
+.pivot-block {
+  border: 0.5px solid #1E1A0A;
+  background: #0E0C06;
+  padding: 24px 28px; margin-top: 16px;
+}
+.pivot-row {
+  display: flex; align-items: baseline; gap: 14px;
+  padding: 14px 0;
+}
+.pivot-row:first-child {
+  border-bottom: 0.5px solid #1E1A0A;
+}
+.pivot-badge {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gray3); flex-shrink: 0; min-width: 44px;
+}
+.pivot-text-before {
+  font-size: 14px; font-weight: 300;
+  font-style: italic; color: var(--gray3); line-height: 1.5;
+}
+.pivot-text-after {
+  font-size: 15px; font-weight: 600;
+  color: var(--gold); line-height: 1.5;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 0.5px solid #161616;
+  padding: 48px;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 16px;
+  max-width: 1400px; margin: 0 auto;
+}
+.footer-brand {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.35em; text-transform: uppercase;
+  color: #222;
+}
+.footer-tools { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-tool {
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: #252525; border: 0.5px solid #1A1A1A;
+  border-radius: 2px; padding: 4px 10px;
+}
+.footer-copy {
+  font-size: 11px; font-weight: 300;
+  color: #222; letter-spacing: 0.06em;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  width: 100%; height: 0.5px; background: #161616;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://alexandrenogueira81.github.io/portfolio-alexandre/" class="nav-back">Portfólio</a>
+  <span class="nav-brand">Alexandre Nogueira</span>
+  <span class="nav-tag">Publicidade</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stars">
+    <div class="star" style="width:1.5px;height:1.5px;top:12%;left:8%;opacity:0.35"></div>
+    <div class="star" style="width:1px;height:1px;top:22%;left:20%;opacity:0.2"></div>
+    <div class="star" style="width:2px;height:2px;top:8%;left:45%;opacity:0.3"></div>
+    <div class="star" style="width:1px;height:1px;top:35%;left:65%;opacity:0.25"></div>
+    <div class="star" style="width:1.5px;height:1.5px;top:18%;left:78%;opacity:0.35"></div>
+    <div class="star" style="width:1px;height:1px;top:55%;left:90%;opacity:0.2"></div>
+    <div class="star" style="width:2px;height:2px;top:28%;left:92%;opacity:0.3"></div>
+    <div class="star" style="width:1px;height:1px;top:72%;left:14%;opacity:0.2"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-label">Publicidade</span>
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-cat">Estudo de caso · 2025</span>
+    </div>
+    <h1 class="hero-title">Nexus Pen<br><em>Da ideia ao vídeo final</em></h1>
+    <p class="hero-sub">Um experimento criativo usando IA como parceira de processo — do naming ao roteiro, da geração de imagens à edição final em 15 segundos.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Categoria</div>
+        <div class="hero-meta-value">Publicidade · Conceitual</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Ferramentas</div>
+        <div class="hero-meta-value">Claude · Magnific · Higgsfield · DaVinci</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Duração</div>
+        <div class="hero-meta-value">15 segundos</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Formato</div>
+        <div class="hero-meta-value">Filme de campanha</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<div style="max-width:1400px;margin:0 auto;">
+  <div class="video-section">
+    <div class="video-wrap">
+      <div class="video-inner">
+        <!-- Para inserir vídeo do YouTube:
+          <iframe src="https://www.youtube.com/embed/SEU_ID"
+          style="position:absolute;inset:0;width:100%;height:100%"
+          frameborder="0" allowfullscreen></iframe>
+        -->
+        <div class="video-play-btn">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="video-placeholder-label">Inserir vídeo da campanha aqui</div>
+      </div>
+    </div>
+    <div class="video-caption">
+      <span class="video-caption-title">Nexus Pen — filme de 15 segundos</span>
+      <span class="video-caption-dur">16:9 · 0:15 · campanha</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESSO -->
+<div style="border-top:0.5px solid #161616">
+<div class="section">
+  <div class="section-label">
+    <span class="section-label-text">Processo</span>
+    <div class="section-label-line"></div>
+  </div>
+
+  <div class="steps">
+
+    <!-- 01 -->
+    <div class="step">
+      <div class="step-num-col">
+        <div class="step-num">01</div>
+        <div class="step-line"></div>
+      </div>
+      <div></div>
+      <div class="step-body">
+        <div class="step-eyebrow">A ideia</div>
+        <h2 class="step-title">Notícia vira <em>conceito de campanha</em></h2>
+        <p class="step-body-text">Uma reportagem da BBC sobre como a escrita à mão mantém redes neurais ativas acende a faísca. A pergunta criativa surge: se a ciência confirma o valor da escrita, por que não criar uma campanha para uma caneta?</p>
+        <div class="step-tags">
+          <span class="step-tag">BBC — neurônios + escrita</span>
+          <span class="step-tag">Insight editorial</span>
+          <span class="step-tag">Briefing intuitivo</span>
+        </div>
+        <div class="img-slot">
+          <div class="img-ph" style="height:96px">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="img-ph-label">Screenshot do artigo da BBC<br>ou referência do insight inicial</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="step">
+      <div class="step-num-col">
+        <div class="step-num">02</div>
+        <div class="step-line"></div>
+      </div>
+      <div></div>
+      <div class="step-body">
+        <div class="step-eyebrow">Construção dos prompts</div>
+        <h2 class="step-title">Claude + Magnific <em>+ Higgsfield</em></h2>
+        <p class="step-body-text">Claude nomeia o produto — nasce a NEXUS PEN — e constrói a pipeline criativa completa. Os primeiros prompts testam diferentes modelos e estilos antes de chegar ao tom definitivo.</p>
+        <div class="step-tags">
+          <span class="step-tag">Naming: Nexus Pen</span>
+          <span class="step-tag">Flux Kontext Pro</span>
+          <span class="step-tag">Nano Banana 2</span>
+          <span class="step-tag">Prompt engineering</span>
+        </div>
+        <div class="img-grid-2">
+          <div class="img-slot">
+            <div class="img-ph" style="height:88px">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <div class="img-ph-label">Conversa com Claude<br>naming e prompts</div>
+            </div>
+          </div>
+          <div class="img-slot">
+            <div class="img-ph" style="height:88px">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <div class="img-ph-label">Interface Magnific<br>com os prompts</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="step">
+      <div class="step-num-col">
+        <div class="step-num">03</div>
+        <div class="step-line"></div>
+      </div>
+      <div></div>
+      <div class="step-body">
+        <div class="step-eyebrow">Roteiro e imagens</div>
+        <h2 class="step-title">Construção <em>visual do roteiro</em></h2>
+        <p class="step-body-text">Com as primeiras imagens geradas, o roteiro ganha forma visual. 6 cenas, 15 segundos. Da pedra ao cosmos — a mesma ferramenta atravessando toda a história humana.</p>
+        <div class="step-tags">
+          <span class="step-tag">6 cenas · 15 segundos</span>
+          <span class="step-tag">Imagens por cena</span>
+          <span class="step-tag">Tagline definida</span>
+        </div>
+        <!-- Storyboard em grid -->
+        <div class="scene-grid">
+          <div class="scene-card">
+            <div class="scene-visual" style="background:#100A04">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+                <ellipse cx="24" cy="30" rx="18" ry="8" fill="#8B4A20"/>
+                <polygon points="24,8 20,28 28,28" fill="#E87030"/>
+                <ellipse cx="24" cy="8" rx="5" ry="7" fill="#C45A10" opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="scene-info">
+              <div class="scene-time">00 — 02s</div>
+              <div class="scene-name">Mão na pedra</div>
+              <div class="scene-copy">— silêncio —</div>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-visual" style="background:#0C0904">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+                <rect x="6" y="10" width="28" height="22" rx="1" fill="#C8A060" opacity="0.4"/>
+                <line x1="10" y1="17" x2="28" y2="17" stroke="#C8A060" stroke-width="1"/>
+                <line x1="10" y1="23" x2="25" y2="23" stroke="#C8A060" stroke-width="1" opacity="0.6"/>
+                <path d="M38 6 L42 38" stroke="#D4A060" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="scene-info">
+              <div class="scene-time">02 — 04s</div>
+              <div class="scene-name">Pena e pergaminho</div>
+              <div class="scene-copy">"Tudo ao redor mudou."</div>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-visual" style="background:#060814">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+                <circle cx="24" cy="24" r="6" fill="#4A5AB0" opacity="0.5"/>
+                <circle cx="24" cy="24" r="11" stroke="#5070D0" stroke-width="0.5" fill="none"/>
+                <circle cx="8" cy="36" r="3" fill="#7060C0"/>
+                <circle cx="40" cy="36" r="3" fill="#5080D0"/>
+                <line x1="24" y1="18" x2="8" y2="33" stroke="#6070C0" stroke-width="0.5"/>
+                <line x1="24" y1="18" x2="40" y2="33" stroke="#7060C0" stroke-width="0.5"/>
+              </svg>
+            </div>
+            <div class="scene-info">
+              <div class="scene-time">04 — 07s</div>
+              <div class="scene-name">Neurônios ativando</div>
+              <div class="scene-copy">"Menos isso."</div>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-visual" style="background:#060E08">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+                <rect x="6" y="12" width="28" height="22" rx="1" fill="#1A2A1A"/>
+                <line x1="10" y1="20" x2="28" y2="20" stroke="#4A8050" stroke-width="1"/>
+                <line x1="10" y1="26" x2="24" y2="26" stroke="#4A8050" stroke-width="1" opacity="0.6"/>
+                <path d="M36 4 L40 42" stroke="#D0C8A0" stroke-width="2.5" stroke-linecap="round"/>
+                <ellipse cx="38" cy="3" rx="2.5" ry="4" fill="#A09078"/>
+              </svg>
+            </div>
+            <div class="scene-info">
+              <div class="scene-time">07 — 11s</div>
+              <div class="scene-name">Nexus Pen</div>
+              <div class="scene-copy">"Escrever é a base de tudo..."</div>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-visual" style="background:#03040C">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" opacity="0.3">
+                <ellipse cx="24" cy="32" rx="22" ry="9" fill="#0A1428"/>
+                <circle cx="6" cy="12" r="0.8" fill="#fff"/>
+                <circle cx="18" cy="8" r="0.6" fill="#fff"/>
+                <circle cx="34" cy="10" r="0.7" fill="#fff"/>
+                <circle cx="42" cy="18" r="0.5" fill="#fff"/>
+                <path d="M23 5 L25 32" stroke="#C8C0A0" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="scene-info">
+              <div class="scene-time">11 — 13s</div>
+              <div class="scene-name">Caneta no cosmos</div>
+              <div class="scene-copy">— silêncio —</div>
+            </div>
+          </div>
+          <div class="scene-card">
+            <div class="scene-visual" style="background:#050508;align-items:center;justify-content:center;flex-direction:column;gap:8px;display:flex">
+              <div style="font-size:14px;font-weight:700;letter-spacing:0.4em;text-transform:uppercase;color:#2A2A40;opacity:0.4">NEXUS PEN</div>
+              <div style="width:28px;height:0.5px;background:#1A1A30"></div>
+            </div>
+            <div class="scene-info">
+              <div class="scene-time">13 — 15s</div>
+              <div class="scene-name">Tela final</div>
+              <div class="scene-copy">"...40 mil anos."</div>
+            </div>
+          </div>
+        </div>
+        <!-- Espaços de imagens das cenas -->
+        <div class="img-grid-6">
+          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 1</div></div></div>
+          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 2</div></div></div>
+          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 3</div></div></div>
+          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 4</div></div></div>
+          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 5</div></div></div>
+          <div class="img-slot"><div class="img-ph" style="height:72px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.15"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><div class="img-ph-label">Cena 6</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="step">
+      <div class="step-num-col">
+        <div class="step-num">04</div>
+        <div class="step-line"></div>
+      </div>
+      <div></div>
+      <div class="step-body">
+        <div class="step-eyebrow">Geração de vídeos</div>
+        <h2 class="step-title">Imagens <em>ganham movimento</em></h2>
+        <p class="step-body-text">Cada imagem aprovada entra no Higgsfield para animação. Motion prompts calibrados cena a cena — câmera lenta nas ancestrais, parallax estelar no cosmos.</p>
+        <div class="step-tags">
+          <span class="step-tag">Higgsfield AI</span>
+          <span class="step-tag">6 clipes gerados</span>
+          <span class="step-tag">Motion por cena</span>
+        </div>
+        <div class="img-grid-2">
+          <div class="img-slot">
+            <div class="img-ph" style="height:96px">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              <div class="img-ph-label">Interface Higgsfield<br>com os clipes</div>
+            </div>
+          </div>
+          <div class="img-slot">
+            <div class="img-ph" style="height:96px">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><line x1="2" y1="6" x2="22" y2="6"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="18" x2="22" y2="18"/><circle cx="6" cy="6" r="2" fill="#fff" opacity="0.3"/><circle cx="14" cy="12" r="2" fill="#fff" opacity="0.3"/><circle cx="10" cy="18" r="2" fill="#fff" opacity="0.3"/></svg>
+              <div class="img-ph-label">Timeline dos<br>clipes gerados</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="step">
+      <div class="step-num-col">
+        <div class="step-num">05</div>
+        <div class="step-line"></div>
+      </div>
+      <div></div>
+      <div class="step-body">
+        <div class="step-eyebrow">Mudança de rota</div>
+        <h2 class="step-title">O roteiro <em>encontra sua verdade</em></h2>
+        <p class="step-body-text">As imagens geradas revelam algo maior. O foco em neurônios cede para uma narrativa atemporal — a caneta como ferramenta que sobreviveu a tudo e está pronta para o futuro.</p>
+        <div class="step-tags">
+          <span class="step-tag">Pivô criativo</span>
+          <span class="step-tag">Conceito ampliado</span>
+          <span class="step-tag">Nova tagline</span>
+        </div>
+        <div class="pivot-block">
+          <div class="pivot-row">
+            <span class="pivot-badge">Antes</span>
+            <span class="pivot-text-before">"Escrever ativa seus neurônios"</span>
+          </div>
+          <div class="pivot-row">
+            <span class="pivot-badge" style="color:var(--gold)">Depois</span>
+            <span class="pivot-text-after">"O próximo capítulo de uma história de 40 mil anos."</span>
+          </div>
+        </div>
+        <div class="img-slot" style="margin-top:8px">
+          <div class="img-ph" style="height:88px">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.43"/></svg>
+            <div class="img-ph-label">Comparativo dos roteiros<br>ou anotações do pivô criativo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="step">
+      <div class="step-num-col">
+        <div class="step-num">06</div>
+      </div>
+      <div></div>
+      <div class="step-body">
+        <div class="step-eyebrow">Edição e finalização</div>
+        <h2 class="step-title">DaVinci Resolve <em>— corte final</em></h2>
+        <p class="step-body-text">Os 6 clipes entram no DaVinci para montagem, color grading e finalização. O silêncio das cenas 1 e 5 é preservado. Locução posicionada ao frame. 15 segundos entregues.</p>
+        <div class="step-tags">
+          <span class="step-tag">DaVinci Resolve</span>
+          <span class="step-tag">Color grading</span>
+          <span class="step-tag">Sound design</span>
+          <span class="step-tag">Entrega final</span>
+        </div>
+        <div class="img-grid-2">
+          <div class="img-slot">
+            <div class="img-ph" style="height:96px">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"/><line x1="3" y1="22" x2="21" y2="22"/></svg>
+              <div class="img-ph-label">Timeline DaVinci<br>com os 6 clipes</div>
+            </div>
+          </div>
+          <div class="img-slot">
+            <div class="img-ph" style="height:96px">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 1 0 4.93 19.07"/><path d="M16.95 7.05A7 7 0 1 0 7.05 16.95"/></svg>
+              <div class="img-ph-label">Color grading<br>do corte final</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /steps -->
+</div><!-- /section -->
+</div>
+
+<!-- FOOTER -->
+<div style="border-top:0.5px solid #161616">
+<footer>
+  <span class="footer-brand">Nexus Pen</span>
+  <div class="footer-tools">
+    <span class="footer-tool">Claude</span>
+    <span class="footer-tool">Magnific</span>
+    <span class="footer-tool">Higgsfield</span>
+    <span class="footer-tool">DaVinci</span>
+    <span class="footer-tool">2025</span>
+  </div>
+  <span class="footer-copy">Alexandre Nogueira · São Paulo</span>
+</footer>
+</div>
+
+</body>
+</html>

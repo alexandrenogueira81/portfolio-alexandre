@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -328,6 +328,12 @@
     .project-item.highlighted .project-thumb {
       aspect-ratio: 18 / 9;
     }
+    .project-item.highlighted .project-thumb-inner {
+      transition: transform 0.6s var(--ease);
+    }
+    .project-item.highlighted:hover .project-thumb-inner {
+      transform: scale(1.05);
+    }
     /* Padrão: 7+5 / 5+7 / 6+6 — repete */
     .project-item:nth-child(1)  { grid-column: span 7; }
     .project-item:nth-child(2)  { grid-column: span 5; }
@@ -356,29 +362,20 @@
       position: relative;
     }
 
-    .project-thumb.clickable-thumb {
-      cursor: pointer;
-    }
-
     .project-thumb-inner {
-      position: absolute;
-      inset: 0;
-      background-color: #252320;
-      overflow: hidden;
-    }
-    .project-thumb-inner img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
+      background-size: cover;
+      background-position: center;
+      background-color: #252320;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: 0;
       transition: transform 0.6s var(--ease);
     }
-    .project-item:hover .project-thumb-inner img {
+    .project-item:hover .project-thumb-inner {
       transform: scale(1.04);
-    }
-    .project-item.highlighted:hover .project-thumb-inner img {
-      transform: scale(1.05);
     }
 
     .project-thumb-label {
@@ -469,20 +466,17 @@
     #about { border-top: 0.5px solid var(--border); }
 
     .about-grid {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 680px;
+      align-items: start;
     }
 
     .about-text {
       font-family: var(--font-display);
-      font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
       font-weight: 300;
-      line-height: 1.6;
-      max-width: 940px;
+      line-height: 1.7;
       color: var(--text);
     }
 
@@ -647,70 +641,6 @@
       border-bottom-color: rgba(201, 169, 110, 0.15);
     }
 
-    /* Case Studies */
-    #estudos { border-top: 0.5px solid var(--border); }
-
-    .case-strip {
-      display: grid;
-      grid-template-columns: 5fr 7fr;
-      border: 0.5px solid var(--border);
-      text-decoration: none;
-      overflow: hidden;
-      transition: border-color 0.3s var(--ease);
-    }
-    .case-strip:hover { border-color: rgba(201, 169, 110, 0.25); }
-
-    .case-strip-visual {
-      background: #0C0C0C;
-      background-size: cover;
-      background-position: center;
-      aspect-ratio: 16/9;
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 10px;
-      border-right: 0.5px solid var(--border);
-      position: relative; overflow: hidden;
-    }
-    .case-strip-visual::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 100%);
-    }
-
-    .case-strip-info {
-      padding: 2.5rem 3rem;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .case-strip-cat {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 10px;
-    }
-    .case-strip-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 2.2vw, 2rem);
-      font-weight: 800; line-height: 1.1;
-      letter-spacing: -0.02em; color: var(--text);
-      margin-bottom: 10px;
-    }
-    .case-strip-desc {
-      font-size: 13px; font-weight: 300;
-      color: var(--muted); line-height: 1.7;
-      margin-bottom: 22px; max-width: 400px;
-    }
-    .case-strip-tools { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 26px; }
-    .case-strip-tool {
-      font-size: 9px; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: #2E2E2E; border: 0.5px solid #1E1E1E;
-      border-radius: 2px; padding: 3px 9px;
-    }
-    .case-strip-cta {
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--accent); display: inline-flex; align-items: center; gap: 8px;
-    }
-    .case-strip-cta::after { content: '→'; }
-
     /* Responsive */
     @media (max-width: 900px) {
       nav { padding: 0.625rem 0.75rem; }
@@ -718,7 +648,6 @@
       #home { padding: 1rem 1.5rem 2rem; }
       .hero-photo { width: 60%; opacity: 0.4; }
       .hero-overlay { background: linear-gradient(to right, var(--bg) 30%, rgba(14,14,13,0.7) 80%); }
-      .hero-name { font-size: clamp(2.4rem, 6.5vw, 3.4rem); }
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .hero-awards { top: auto; bottom: 4.5rem; right: 1.5rem; transform: none; gap: 0.75rem; }
       .award-badge { padding: 7px 10px; }
@@ -731,25 +660,10 @@
       .contact-links { align-items: flex-start; }
       .scroll-hint { display: none; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-      .case-strip { grid-template-columns: 1fr; }
-      .case-strip-visual { aspect-ratio: 21/9; border-right: none; border-bottom: 0.5px solid var(--border); }
-      .case-strip-info { padding: 1.5rem; }
-    }
-    @media (max-width: 720px) {
-      #home { aspect-ratio: 10/16; padding: 0.9rem 1rem 1.4rem; }
-      .hero-content { gap: 1rem; align-items: flex-start; }
-      .hero-name { font-size: clamp(2.1rem, 8vw, 2.8rem); }
-      .hero-overlay { background: linear-gradient(to top, rgba(14, 14, 13, 0.92) 0%, rgba(14, 14, 13, 0.55) 50%, rgba(14, 14, 13, 0.12) 100%); }
-      .hero-awards { opacity: 0.75; }
     }
     @media (max-width: 600px) {
       .nav-links { display: none; }
       .portfolio-header { flex-direction: column; align-items: flex-start; }
-      #home { aspect-ratio: 9/16; padding: 1rem 1rem 1.5rem; }
-      .hero-content { gap: 0.85rem; align-items: flex-start; }
-      .hero-name { font-size: clamp(1.8rem, 9vw, 2.4rem); white-space: normal; }
-      .hero-awards { display: none; }
-      .hero-overlay { background: linear-gradient(to top, rgba(14, 14, 13, 0.95) 0%, rgba(14, 14, 13, 0.55) 50%, rgba(14, 14, 13, 0.1) 100%); }
     }
   </style>
 </head>
@@ -760,7 +674,6 @@
     <ul class="nav-links">
       <li><a href="#portfolio">Portfólio</a></li>
       <li><a href="#about">Sobre</a></li>
-      <li><a href="#estudos">Casos</a></li>
       <li><a href="#contact">Contato</a></li>
     </ul>
     <div class="nav-social">
@@ -847,21 +760,6 @@
 
   </section>
 
-  <!-- About -->
-  <section id="about">
-    <div class="section-label">Sobre</div>
-    <div class="about-grid">
-      <div>
-        <p class="about-text reveal">
-          Psicólogo e designer gráfico com mais de <em>15 anos de experiência</em> na indústria audiovisual.
-          Editor, pós-produtor e roteirista com trabalhos exibidos em Berlim, Apple TV, MUBI e TV aberta.
-          <br><br>
-          Uma trajetória construída entre a <em>Amazônia e São Paulo</em> — do documentário à série, do videoclipe ao roteiro.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <!-- Info strip -->
   <div class="info-strip">
     <div class="info-col reveal">
@@ -935,7 +833,7 @@
         <div class="project-thumb">
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
-            <a href="https://tv.apple.com/br/show/sabores-da-floresta/umc.cmc.2yg6v5d1xkurky9avht82vxo" target="_blank">
+            <a href="https://tv.apple.com" target="_blank">
               <p class="project-watch">Assistir no Apple TV →</p>
               <h3 class="project-overlay-title">Sabores da Floresta</h3>
               <div class="project-overlay-meta">
@@ -947,7 +845,7 @@
         </div>
         <div class="project-info">
           <p class="project-type">Série · Apple TV</p>
-          <a class="project-title" href="https://tv.apple.com/br/show/sabores-da-floresta/umc.cmc.2yg6v5d1xkurky9avht82vxo" target="_blank">Sabores da Floresta</a>
+          <a class="project-title" href="https://tv.apple.com" target="_blank">Sabores da Floresta</a>
           <p class="project-role">Editor — Temporadas 01 e 02</p>
         </div>
       </article>
@@ -1023,8 +921,8 @@
         <div class="project-thumb">
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
-            <a href="https://www.sommosamazonia.art.br/pt/serie/olhares-do-norte/" target="_blank">
-              <p class="project-watch">Assista na Sommos →</p>
+            <a href="https://tvbrasil.ebc.com.br" target="_blank">
+              <p class="project-watch">TV Brasil →</p>
               <h3 class="project-overlay-title">Olhares do Norte</h3>
               <div class="project-overlay-meta">
                 <span>2024</span>
@@ -1034,8 +932,8 @@
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Série · Sommos</p>
-          <a class="project-title" href="https://www.sommosamazonia.art.br/pt/serie/olhares-do-norte/" target="_blank">Olhares do Norte</a>
+          <p class="project-type">Série · TV Brasil</p>
+          <a class="project-title" href="https://tvbrasil.ebc.com.br" target="_blank">Olhares do Norte</a>
           <p class="project-role">Editor · Colorista</p>
         </div>
       </article>
@@ -1206,8 +1104,8 @@
         <div class="project-thumb">
           <div class="project-thumb-inner"></div>
           <div class="project-overlay">
-            <a href="https://globoplay.globo.com/v/6307461/?s=0s" target="_blank">
-              <p class="project-watch">Assista na Globoplay →</p>
+            <a href="https://canaisglobo.globo.com/assistir/futura/diz-ai-maleta-juventudes/v/6307461/" target="_blank">
+              <p class="project-watch">Assistir no Canal Futura →</p>
               <h3 class="project-overlay-title">Diz Aí — Juventude Rural</h3>
               <div class="project-overlay-meta">
                 <span>2016</span>
@@ -1217,8 +1115,8 @@
           </div>
         </div>
         <div class="project-info">
-          <p class="project-type">Série · Globoplay</p>
-          <a class="project-title" href="https://globoplay.globo.com/v/6307461/?s=0s" target="_blank">Diz Aí — Juventude Rural</a>
+          <p class="project-type">Série · TV/Streaming</p>
+          <a class="project-title" href="https://canaisglobo.globo.com/assistir/futura/diz-ai-maleta-juventudes/v/6307461/" target="_blank">Diz Aí — Juventude Rural</a>
           <p class="project-role">Diretor · Fotógrafo · Editor</p>
         </div>
       </article>
@@ -1318,24 +1216,19 @@
     </div>
   </section>
 
-  <!-- Estudos de Caso -->
-  <section id="estudos">
-    <div class="section-label">Estudos de caso</div>
-    <a href="nexus-pen-case-study.html" class="case-strip reveal">
-      <div class="case-strip-visual" style="background-image:url('assets/images/magnific__hero-product-shot-of-a-sleek-futuristic-matte-blac__13293.png')"></div>
-      <div class="case-strip-info">
-        <p class="case-strip-cat">Publicidade · Conceitual · 2025</p>
-        <h3 class="case-strip-title">Nexus Pen</h3>
-        <p class="case-strip-desc">Um experimento criativo com IA — do naming ao roteiro, da geração de imagens à edição final em 15 segundos.</p>
-        <div class="case-strip-tools">
-          <span class="case-strip-tool">Claude</span>
-          <span class="case-strip-tool">Magnific</span>
-          <span class="case-strip-tool">Higgsfield</span>
-          <span class="case-strip-tool">DaVinci</span>
-        </div>
-        <span class="case-strip-cta">Ver estudo de caso</span>
+  <!-- About -->
+  <section id="about">
+    <div class="section-label">Sobre</div>
+    <div class="about-grid">
+      <div>
+        <p class="about-text reveal">
+          Psicólogo e designer gráfico com mais de <em>15 anos de experiência</em> na indústria audiovisual.
+          Editor, pós-produtor e roteirista com trabalhos exibidos em Berlim, Apple TV, MUBI e TV aberta.
+          <br><br>
+          Uma trajetória construída entre a <em>Amazônia e São Paulo</em> — do documentário à série, do videoclipe ao roteiro.
+        </p>
       </div>
-    </a>
+    </div>
   </section>
 
   <!-- Contact -->
@@ -1421,24 +1314,7 @@
       const thumbnail = item.dataset.thumbnail;
       if (thumbnail) {
         const thumbInner = item.querySelector('.project-thumb-inner');
-        const img = document.createElement('img');
-        img.src = thumbnail;
-        img.alt = '';
-        img.loading = 'lazy';
-        thumbInner.appendChild(img);
-      }
-    });
-
-    // Make thumbnails clickable when overlay links exist
-    projectItems.forEach(item => {
-      const thumb = item.querySelector('.project-thumb');
-      const overlayAnchor = item.querySelector('.project-overlay a');
-      if (thumb && overlayAnchor) {
-        thumb.classList.add('clickable-thumb');
-        thumb.addEventListener('click', event => {
-          if (event.target.closest('a')) return;
-          window.open(overlayAnchor.href, '_blank');
-        });
+        thumbInner.style.backgroundImage = `url('${thumbnail}')`;
       }
     });
 
@@ -1459,3 +1335,4 @@
   </script>
 </body>
 </html>
+
