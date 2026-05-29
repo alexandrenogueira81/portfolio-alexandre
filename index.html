@@ -98,15 +98,15 @@
     .nav-social-link {
       display: flex;
       align-items: center;
-      color: var(--muted);
+      color: rgba(234, 231, 223, 0.55);
       text-decoration: none;
       transition: color 0.25s;
     }
     .nav-social-link:hover { color: var(--accent); }
 
     .nav-social-icon {
-      width: 15px;
-      height: 15px;
+      width: 18px;
+      height: 18px;
       stroke: currentColor;
       fill: none;
       stroke-width: 1.5;
@@ -120,7 +120,7 @@
       align-items: center;
       gap: 0;
       background: transparent;
-      border: 0.5px solid var(--border);
+      border: 0.5px solid rgba(201, 169, 110, 0.35);
       border-radius: 2px;
       overflow: hidden;
       flex-shrink: 0;
@@ -128,24 +128,24 @@
     .lang-btn {
       background: transparent;
       border: none;
-      color: var(--muted);
+      color: rgba(234, 231, 223, 0.5);
       font-family: var(--font-body);
       font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 4px 9px;
+      padding: 5px 10px;
       transition: color 0.2s, background 0.2s;
     }
     .lang-btn:hover { color: var(--text); }
     .lang-btn.active {
-      background: var(--text);
+      background: var(--accent);
       color: var(--bg);
     }
     .lang-sep {
       width: 0.5px;
       height: 14px;
-      background: var(--border);
+      background: rgba(201, 169, 110, 0.25);
       flex-shrink: 0;
     }
 
