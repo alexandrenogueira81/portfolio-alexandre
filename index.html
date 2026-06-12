@@ -39,7 +39,7 @@
       overflow-x: hidden;
     }
 
-    a, button { cursor: auto; }
+    a, button { cursor: pointer; }
 
     /* Nav */
     nav {
@@ -506,7 +506,10 @@
     }
 
     /* About */
-    #about { border-top: 0.5px solid var(--border); }
+    #about {
+      border-top: 0.5px solid var(--border);
+      padding: 3.5rem 3rem;
+    }
 
     .about-grid {
       display: flex;
@@ -519,10 +522,10 @@
 
     .about-text {
       font-family: var(--font-display);
-      font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+      font-size: clamp(0.82rem, 1vw, 0.92rem);
       font-weight: 300;
-      line-height: 1.6;
-      max-width: 940px;
+      line-height: 1.55;
+      max-width: 820px;
       color: var(--text);
     }
 
@@ -938,6 +941,26 @@
       </ul>
     </div>
   </div>
+
+  <!-- Estudos de Caso -->
+  <section id="estudos">
+    <div class="section-label" data-i18n="label-cases">Estudos de caso</div>
+    <a href="nexus-pen-case-study.html" class="case-strip reveal">
+      <div class="case-strip-visual" style="background-image:url('assets/images/magnific__hero-product-shot-of-a-sleek-futuristic-matte-blac__13293.png')"></div>
+      <div class="case-strip-info">
+        <p class="case-strip-cat" data-i18n="case-cat">Publicidade · Conceitual · 2026</p>
+        <h3 class="case-strip-title">Nexus Pen</h3>
+        <p class="case-strip-desc" data-i18n="case-desc">Um experimento criativo com IA — do naming ao roteiro, da geração de imagens à edição final em 15 segundos.</p>
+        <div class="case-strip-tools">
+          <span class="case-strip-tool">Claude</span>
+          <span class="case-strip-tool">Magnific</span>
+          <span class="case-strip-tool">Higgsfield</span>
+          <span class="case-strip-tool">DaVinci</span>
+        </div>
+        <span class="case-strip-cta" data-i18n="case-cta">Ver estudo de caso</span>
+      </div>
+    </a>
+  </section>
 
   <!-- Portfolio -->
   <section id="portfolio">
@@ -1366,26 +1389,6 @@
     </div>
   </section>
 
-  <!-- Estudos de Caso -->
-  <section id="estudos">
-    <div class="section-label" data-i18n="label-cases">Estudos de caso</div>
-    <a href="nexus-pen-case-study.html" class="case-strip reveal">
-      <div class="case-strip-visual" style="background-image:url('assets/images/magnific__hero-product-shot-of-a-sleek-futuristic-matte-blac__13293.png')"></div>
-      <div class="case-strip-info">
-        <p class="case-strip-cat" data-i18n="case-cat">Publicidade · Conceitual · 2025</p>
-        <h3 class="case-strip-title">Nexus Pen</h3>
-        <p class="case-strip-desc" data-i18n="case-desc">Um experimento criativo com IA — do naming ao roteiro, da geração de imagens à edição final em 15 segundos.</p>
-        <div class="case-strip-tools">
-          <span class="case-strip-tool">Claude</span>
-          <span class="case-strip-tool">Magnific</span>
-          <span class="case-strip-tool">Higgsfield</span>
-          <span class="case-strip-tool">DaVinci</span>
-        </div>
-        <span class="case-strip-cta" data-i18n="case-cta">Ver estudo de caso</span>
-      </div>
-    </a>
-  </section>
-
   <!-- Contact -->
   <div id="contact">
     <a class="contact-item reveal" href="mailto:alexandrenogueira81@gmail.com">
@@ -1509,7 +1512,7 @@
         'award-saude': 'Prêmio Diário de Publicidade 2013',
         'title-nucleo': 'Núcleo Criativo de Roteiros (Clarté)',
         'title-saude': 'Saúde é uma Questão de Felicidade',
-        'case-cat': 'Publicidade · Conceitual · 2025',
+        'case-cat': 'Publicidade · Conceitual · 2026',
         'case-desc': 'Um experimento criativo com IA — do naming ao roteiro, da geração de imagens à edição final em 15 segundos.',
         'case-cta': 'Ver estudo de caso',
         'footer-location': 'São Paulo, Brasil',
@@ -1599,7 +1602,7 @@
         'award-saude': 'Prêmio Diário de Publicidade 2013',
         'title-nucleo': 'Creative Screenplay Lab (Clarté)',
         'title-saude': 'Health is a Matter of Happiness',
-        'case-cat': 'Advertising · Conceptual · 2025',
+        'case-cat': 'Advertising · Conceptual · 2026',
         'case-desc': 'A creative AI experiment — from naming to script, from image generation to the final 15-second edit.',
         'case-cta': 'View case study',
         'footer-location': 'São Paulo, Brazil',
